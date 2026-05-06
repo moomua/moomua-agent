@@ -1,0 +1,26 @@
+{
+  "name": "MOOMUA SNS 에이전트",
+  "short_name": "MOOMUA",
+  "description": "무무아 인스타그램 캡션 에이전트 — 소재를 넣으면 캡션 3안이 나옵니다",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "orientation": "any",
+  "theme_color": "#4A3F35",
+  "background_color": "#F5F1EC",
+  "lang": "ko",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}
