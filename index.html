@@ -235,18 +235,42 @@
     .axis-list li:last-child { border-bottom: none; padding-bottom: 0; }
     .axis-list strong { color: var(--accent); font-weight: 500; }
 
-    .ban-words { display: flex; flex-wrap: wrap; gap: 8px; }
-    .ban-tag {
-      font-size: 12px; padding: 4px 10px;
-      background: var(--reject-bg); color: var(--reject-fg);
-      border-radius: 2px; letter-spacing: 0.04em;
+    .info-list { list-style: none; }
+    .info-list li {
+      font-size: 13px; line-height: 1.75; color: var(--text);
+      padding: 7px 0; border-bottom: 1px solid var(--border);
     }
+    .info-list li:last-child { border-bottom: none; padding-bottom: 0; }
+    .info-list li::before { content: '—'; color: var(--accent); margin-right: 8px; }
 
-    .style-ref {
-      font-size: 15px; line-height: 2; color: var(--text);
-      border-left: 3px solid var(--accent); padding-left: 16px;
-      white-space: pre-line;
-    }
+    .mv-block { padding: 12px 0; border-bottom: 1px solid var(--border); }
+    .mv-block:last-child { border-bottom: none; padding-bottom: 0; }
+    .mv-label { font-size: 10px; letter-spacing: 0.14em; color: var(--accent); margin-bottom: 5px; }
+    .mv-text  { font-size: 13px; line-height: 1.75; color: var(--text); }
+
+    .value-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .value-item { background: var(--bg); border-radius: 3px; padding: 12px 14px; }
+    .value-name { font-size: 12px; font-weight: 500; color: var(--accent); margin-bottom: 4px; }
+    .value-desc { font-size: 12px; line-height: 1.6; color: var(--muted); }
+
+    .acrostic { margin-bottom: 16px; }
+    .acrostic-line { display: flex; align-items: baseline; gap: 10px; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+    .acrostic-line:last-child { border-bottom: none; }
+    .acrostic-letter { font-size: 16px; font-weight: 300; color: var(--accent); width: 14px; flex-shrink: 0; }
+    .acrostic-meaning { color: var(--text); line-height: 1.5; }
+
+    .target-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    @media (max-width: 520px) { .target-grid { grid-template-columns: 1fr; } .value-grid { grid-template-columns: 1fr; } }
+    .target-item { background: var(--bg); border-radius: 3px; padding: 12px 14px; }
+    .target-age  { font-size: 12px; font-weight: 500; color: var(--accent); margin-bottom: 6px; }
+    .target-desc { font-size: 12px; line-height: 1.65; color: var(--muted); }
+
+    .faith-quote { font-size: 11px; color: var(--light); letter-spacing: 0.04em; margin-top: 12px; line-height: 1.8; border-top: 1px solid var(--border); padding-top: 10px; }
+
+    .trademark-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+    .trademark-row:last-child { border-bottom: none; }
+    .trademark-class { color: var(--text); font-weight: 500; }
+    .trademark-status { font-size: 11px; color: var(--muted); }
 
     .color-swatches { display: flex; gap: 12px; }
     .swatch { display: flex; align-items: center; gap: 10px; }
@@ -340,46 +364,171 @@
   <!-- ── 브랜드 탭 ── -->
   <div class="panel" id="panel-brand">
 
+    <!-- ① 브랜드 네임 의미 -->
     <div class="brand-section">
-      <span class="brand-section-title">브랜드 철학</span>
+      <span class="brand-section-title">브랜드 네임</span>
       <div class="brand-card">
         <div class="philosophy">無 嫵 我</div>
         <div class="philosophy-sub">비워서 진짜 나를 만나는 공간</div>
-        <p style="margin-top:14px; font-size:13px; color:var(--muted); line-height:1.8;">
-          필라테스 강사 계정이 아닌, 두 도시를 오가며 나를 만드는<br>루틴과 자기관리 라이프스타일 브랜드.
-        </p>
+        <ul class="info-list" style="margin-top:14px;">
+          <li><strong>Moo (無)</strong> 비우다 — 몸과 마음의 불필요한 것을 비워내고 본연으로 돌아간다</li>
+          <li><strong>Mua (嫵我)</strong> 아름다울 무 + 나 아 — 비워낸 자리에 남는 진짜 아름다운 자신</li>
+          <li><strong>영문</strong> Meeting Origin, Obtaining Mindfulness : Ultimate Awakening</li>
+        </ul>
       </div>
     </div>
 
+    <!-- ② 로고 스토리 -->
+    <div class="brand-section">
+      <span class="brand-section-title">로고 스토리 — 비움과 회복의 흐름</span>
+      <div class="brand-card">
+        <ul class="info-list">
+          <li>줄에 몸을 맡긴 아치형 곡선 — 불필요한 것을 내려놓고 본연의 균형으로</li>
+          <li>투박한 질감 — 완벽함이 아닌 있는 그대로의 나</li>
+          <li>발바닥에서 척추를 따라 머리까지 — 몸과 마음이 하나로 연결</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ③ 미션 & 비전 -->
+    <div class="brand-section">
+      <span class="brand-section-title">미션 &amp; 비전</span>
+      <div class="brand-card">
+        <div class="mv-block">
+          <div class="mv-label">MISSION</div>
+          <div class="mv-text">잘못된 다이어트 문화와 과도한 시술 트렌드에 맞서, 여성이 자신의 몸을 직접 이해하고 설계할 수 있도록 올바른 건강 루틴과 지식을 전달한다</div>
+        </div>
+        <div class="mv-block">
+          <div class="mv-label">VISION</div>
+          <div class="mv-text">20–50대 여성의 생애주기 전반을 아우르는 국내 대표 여성 웰니스 브랜드</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ④ Core Value -->
+    <div class="brand-section">
+      <span class="brand-section-title">Core Value</span>
+      <div class="brand-card">
+        <div class="value-grid">
+          <div class="value-item">
+            <div class="value-name">진정성</div>
+            <div class="value-desc">내가 직접 검증하고 경험한 것만 전달</div>
+          </div>
+          <div class="value-item">
+            <div class="value-name">전문성</div>
+            <div class="value-desc">필라테스 재활·체형교정 전문 지식 기반</div>
+          </div>
+          <div class="value-item">
+            <div class="value-name">연결성</div>
+            <div class="value-desc">머리부터 발끝까지 통합적 관점</div>
+          </div>
+          <div class="value-item">
+            <div class="value-name">건강한 영향력</div>
+            <div class="value-desc">보조제·시술 광고 아닌 지속가능한 건강 습관</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ⑤ 타겟 고객 -->
+    <div class="brand-section">
+      <span class="brand-section-title">타겟 고객</span>
+      <div class="brand-card">
+        <div class="target-grid">
+          <div class="target-item">
+            <div class="target-age">20대</div>
+            <div class="target-desc">체형 컴플렉스, 잘못된 다이어트 경험, SNS 왜곡 정보에 노출</div>
+          </div>
+          <div class="target-item">
+            <div class="target-age">30대</div>
+            <div class="target-desc">체형 변화, 코어 약화, 임신·출산 전후 몸 관리</div>
+          </div>
+          <div class="target-item">
+            <div class="target-age">40–50대</div>
+            <div class="target-desc">호르몬 변화, 체형 불균형, 지속가능한 건강 루틴</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ⑥ 신앙적 철학 -->
+    <div class="brand-section">
+      <span class="brand-section-title">신앙적 철학</span>
+      <div class="brand-card">
+        <ul class="info-list">
+          <li>하나님이 처음부터 아름답게 지으신 나</li>
+          <li>세상이 덧씌운 것들을 비워낼 때 비로소 본연의 모습으로 돌아간다</li>
+          <li>비움은 나약함이 아니라 온유함이다</li>
+          <li>MOOMUA는 그 여정을 함께하는 공간</li>
+        </ul>
+        <div class="acrostic" style="margin-top:16px;">
+          <div class="acrostic-line"><span class="acrostic-letter">M</span><span class="acrostic-meaning">Meeting the self God originally created</span></div>
+          <div class="acrostic-line"><span class="acrostic-letter">O</span><span class="acrostic-meaning">Obtaining meekness · 온유함을 얻음</span></div>
+          <div class="acrostic-line"><span class="acrostic-letter">O</span><span class="acrostic-meaning">Opening what was hidden beneath</span></div>
+          <div class="acrostic-line"><span class="acrostic-letter">M</span><span class="acrostic-meaning">Melting away what the world has layered on</span></div>
+          <div class="acrostic-line"><span class="acrostic-letter">U</span><span class="acrostic-meaning">Unveiling the true and beautiful self</span></div>
+          <div class="acrostic-line"><span class="acrostic-letter">A</span><span class="acrostic-meaning">Awakening to who you were made to be</span></div>
+        </div>
+        <div class="faith-quote">
+          無(비움) = 나를 비워 하나님으로 채워짐<br>
+          嫵我 = 하나님 보시기에 심히 좋았더라 (창 1:31)<br>
+          온유 = 온유한 자는 복이 있나니 (마 5:5)
+        </div>
+      </div>
+    </div>
+
+    <!-- ⑦ 2025 목표 -->
+    <div class="brand-section">
+      <span class="brand-section-title">2025 목표</span>
+      <div class="brand-card">
+        <ul class="info-list">
+          <li>인천 수업 점진적 축소 → 브랜드 수익으로 전환</li>
+          <li>콘텐츠 수익 구축 (SNS 제휴·어필리에이트)</li>
+          <li>온열팩 제품 출시 (디자인 등록 후 런칭)</li>
+          <li>임상 콘텐츠 자산화</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ⑧ 상표권 현황 -->
+    <div class="brand-section">
+      <span class="brand-section-title">상표권 현황</span>
+      <div class="brand-card">
+        <div class="trademark-row">
+          <span class="trademark-class">41류</span>
+          <span class="trademark-status">우선심사 통과 · 심사 진행 중</span>
+        </div>
+        <div class="trademark-row">
+          <span class="trademark-class">35류</span>
+          <span class="trademark-status">41류 등록 후 추가 예정</span>
+        </div>
+        <div class="trademark-row">
+          <span class="trademark-class">44류</span>
+          <span class="trademark-status">41류 등록 후 추가 예정</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ⑨ 브랜드 컬러 -->
     <div class="brand-section">
       <span class="brand-section-title">브랜드 컬러</span>
       <div class="brand-card">
         <div class="color-swatches">
           <div class="swatch">
             <div class="swatch-dot" style="background:#D0E1ED"></div>
-            <div>
-              <div class="swatch-name">Blue Grey</div>
-              <div class="swatch-info">#D0E1ED</div>
-            </div>
+            <div><div class="swatch-name">Blue Grey</div><div class="swatch-info">#D0E1ED</div></div>
           </div>
           <div class="swatch">
             <div class="swatch-dot" style="background:#E7E0D8"></div>
-            <div>
-              <div class="swatch-name">Warm Beige</div>
-              <div class="swatch-info">#E7E0D8</div>
-            </div>
+            <div><div class="swatch-name">Warm Beige</div><div class="swatch-info">#E7E0D8</div></div>
           </div>
           <div class="swatch">
             <div class="swatch-dot" style="background:#6D8599"></div>
-            <div>
-              <div class="swatch-name">Slate Blue</div>
-              <div class="swatch-info">#6D8599</div>
-            </div>
+            <div><div class="swatch-name">Slate Blue</div><div class="swatch-info">#6D8599</div></div>
           </div>
         </div>
       </div>
     </div>
-
 
   </div><!-- /panel-brand -->
 </div><!-- /panels -->
