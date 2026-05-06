@@ -272,6 +272,22 @@
     .trademark-class { color: var(--text); font-weight: 500; }
     .trademark-status { font-size: 11px; color: var(--muted); }
 
+    .cases-wrap { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 28px; }
+    .cases-header { font-size: 10px; letter-spacing: 0.14em; color: var(--light); margin-bottom: 14px; }
+    .case-card { background: var(--card); border: 1px solid var(--border); border-radius: 3px; padding: 20px; margin-bottom: 14px; }
+    .case-card:last-child { margin-bottom: 0; }
+    .case-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .case-id   { font-size: 10px; letter-spacing: 0.12em; color: var(--accent); font-weight: 500; }
+    .case-date { font-size: 11px; color: var(--light); }
+    .case-title { font-size: 14px; line-height: 1.6; color: var(--text); font-weight: 500; margin-bottom: 16px; }
+    .case-block { margin-bottom: 12px; }
+    .case-block-label { font-size: 10px; letter-spacing: 0.12em; color: var(--light); margin-bottom: 5px; }
+    .case-block-text { font-size: 13px; line-height: 1.75; color: var(--muted); }
+    .case-block-text ol { padding-left: 18px; }
+    .case-block-text ol li { margin-bottom: 3px; }
+    .case-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border); }
+    .case-tag  { font-size: 11px; padding: 3px 9px; background: var(--bg); color: var(--muted); border-radius: 2px; border: 1px solid var(--border); }
+
     .color-swatches { display: flex; gap: 12px; }
     .swatch { display: flex; align-items: center; gap: 10px; }
     .swatch-dot { width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0; border: 1px solid rgba(0,0,0,0.06); }
@@ -331,6 +347,71 @@
         <button class="btn-copy" id="copy-clinical" onclick="copyText('clinical')">복사</button>
       </div>
       <div class="result-body" id="body-clinical"></div>
+    </div>
+
+    <!-- 케이스 기록 -->
+    <div class="cases-wrap">
+      <div class="cases-header">케이스 기록</div>
+
+      <div class="case-card">
+        <div class="case-meta">
+          <span class="case-id">INS-2025-001</span>
+          <span class="case-date">2025.05.02</span>
+        </div>
+        <div class="case-title">골반저근 과긴장 + 무증상 방광염 + 복직근이개 + 자연임신 어려움의 복합 패턴</div>
+        <div class="case-block">
+          <div class="case-block-label">관 찰</div>
+          <div class="case-block-text">30대 중반, 결혼 2년차, 1년간 자연임신 시도. 부부 산전검사 정상. 복직근이개(체형 불균형). 무증상 방광염 2년 전부터. 골반저근 근막이완 직후 방광염 재발. 이완 시 통증 → 과긴장 상태 시사.</div>
+        </div>
+        <div class="case-block">
+          <div class="case-block-label">가 설</div>
+          <div class="case-block-text">
+            <ol>
+              <li>복직근이개 → 복강내압 분산 실패 → 골반저근 만성 과부하·과긴장</li>
+              <li>골반 내 만성 염증 환경 → 자극 시 증상 발현</li>
+              <li>골반저근 과긴장 → 자궁·난소 혈류 감소 → 착상 환경 저하</li>
+            </ol>
+          </div>
+        </div>
+        <div class="case-block">
+          <div class="case-block-label">해부학 키워드</div>
+          <div class="case-block-text">linea alba · transversus abdominis · pudendal nerve · levator ani · 복강내압(IAP) · 자궁내막 혈류</div>
+        </div>
+        <div class="case-tags">
+          <span class="case-tag">골반저근</span><span class="case-tag">과긴장</span><span class="case-tag">방광</span><span class="case-tag">복직근이개</span><span class="case-tag">임신준비</span><span class="case-tag">복강내압</span><span class="case-tag">혈류</span>
+        </div>
+      </div>
+
+      <div class="case-card">
+        <div class="case-meta">
+          <span class="case-id">INS-2026-002</span>
+          <span class="case-date">2025.05.02</span>
+        </div>
+        <div class="case-title">하지정맥류 수술력 + 플랫백·후방경사 + 복직근이개 → 골반 울혈 + 난자 성장 환경 저하</div>
+        <div class="case-block">
+          <div class="case-block-label">관 찰</div>
+          <div class="case-block-text">인공수정 진행 중. 하지정맥 수술 과거력. 후방경사 심함. 플랫백에 역C자 목. 복직근이개 확인. 난자 크기 생각보다 작음. 복부가 차고 순환 안 되는 느낌.</div>
+        </div>
+        <div class="case-block">
+          <div class="case-block-label">가 설</div>
+          <div class="case-block-text">
+            <ol>
+              <li>하지정맥류 판막 이상 → 골반 내 정맥 울혈 → 난소 혈류 정체</li>
+              <li>플랫백+후방경사 → 골반저근 기능 저하 + 복강내압 붕괴</li>
+              <li>복직근이개 → 복횡근 약화 → 골반저근 과부하 심화</li>
+              <li>역C자 목 → 교감신경 과활성 → 복부 냉감</li>
+            </ol>
+          </div>
+        </div>
+        <div class="case-block">
+          <div class="case-block-label">해부학 키워드</div>
+          <div class="case-block-text">난소정맥 · 골반 정맥총 · 복강내압 · 복횡근 · 골반저근 · 요추 전만 · 교감신경</div>
+        </div>
+        <div class="case-tags">
+          <span class="case-tag">골반저근</span><span class="case-tag">복직근이개</span><span class="case-tag">하지정맥</span><span class="case-tag">혈류</span><span class="case-tag">임신준비</span><span class="case-tag">체형</span><span class="case-tag">후방경사</span><span class="case-tag">골반울혈</span>
+        </div>
+      </div>
+
     </div>
   </div>
 
