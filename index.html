@@ -288,6 +288,27 @@
     .case-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border); }
     .case-tag  { font-size: 11px; padding: 3px 9px; background: var(--bg); color: var(--muted); border-radius: 2px; border: 1px solid var(--border); }
 
+    /* ── AI팀 탭 ── */
+    .ait-label { font-size: 10px; letter-spacing: 0.14em; color: var(--light); margin-bottom: 14px; display: block; }
+    .team-dir-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 480px) { .team-dir-grid { grid-template-columns: 1fr; } }
+    .team-dir-card { background: var(--card); border: 1px solid var(--border); border-radius: 3px; padding: 16px; }
+    .team-dir-top  { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+    .team-priority { font-size: 9px; letter-spacing: 0.12em; color: var(--accent); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 2px 7px; }
+    .team-emoji    { font-size: 16px; line-height: 1; }
+    .team-dir-name { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 10px; }
+    .team-agents   { list-style: none; }
+    .team-agents li { font-size: 12px; color: var(--muted); padding: 3px 0; border-bottom: 1px solid var(--border); line-height: 1.4; }
+    .team-agents li::before { content: '·'; color: var(--accent-lt); margin-right: 6px; }
+    .team-agents li:last-child { border-bottom: none; }
+
+    .roadmap { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+    @media (max-width: 560px) { .roadmap { grid-template-columns: 1fr 1fr; } }
+    .road-step { background: var(--card); border: 1px solid var(--border); border-radius: 3px; padding: 14px; }
+    .road-num  { font-size: 22px; font-weight: 300; color: var(--accent); letter-spacing: -0.02em; margin-bottom: 6px; }
+    .road-ctx  { font-size: 10px; letter-spacing: 0.08em; color: var(--light); margin-bottom: 6px; }
+    .road-title { font-size: 12px; line-height: 1.6; color: var(--text); }
+
     .color-swatches { display: flex; gap: 12px; }
     .swatch { display: flex; align-items: center; gap: 10px; }
     .swatch-dot { width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0; border: 1px solid rgba(0,0,0,0.06); }
@@ -328,6 +349,7 @@
   <button class="tab"        onclick="switchTab('sns')">SNS 콘텐츠</button>
   <button class="tab"        onclick="switchTab('strategy')">전략/기획</button>
   <button class="tab"        onclick="switchTab('brand')">브랜드</button>
+  <button class="tab"        onclick="switchTab('aiteam')">AI팀</button>
 </div>
 
 <!-- Panels -->
@@ -612,6 +634,116 @@
     </div>
 
   </div><!-- /panel-brand -->
+
+  <!-- ── AI팀 탭 ── -->
+  <div class="panel" id="panel-aiteam">
+
+    <div style="margin-bottom:28px;">
+      <span class="ait-label">에이전트 팀 구성</span>
+      <div class="team-dir-grid">
+
+        <div class="team-dir-card">
+          <div class="team-dir-top"><span class="team-priority">Priority 01</span><span class="team-emoji">🔬</span></div>
+          <div class="team-dir-name">임상 지식 팀</div>
+          <ul class="team-agents">
+            <li>인사이트 캐처</li>
+            <li>논문 번역가</li>
+            <li>지식 큐레이터</li>
+            <li>자료 제작자</li>
+          </ul>
+        </div>
+
+        <div class="team-dir-card">
+          <div class="team-dir-top"><span class="team-priority">Priority 02</span><span class="team-emoji">🎨</span></div>
+          <div class="team-dir-name">SNS 콘텐츠 팀</div>
+          <ul class="team-agents">
+            <li>콘텐츠 기획자</li>
+            <li>카피라이터</li>
+            <li>퍼블리싱 에디터</li>
+          </ul>
+        </div>
+
+        <div class="team-dir-card">
+          <div class="team-dir-top"><span class="team-priority">Priority 03</span><span class="team-emoji">🧠</span></div>
+          <div class="team-dir-name">전략/기획 팀</div>
+          <ul class="team-agents">
+            <li>시장 분석가</li>
+            <li>비즈니스 설계자</li>
+            <li>의사결정 코치</li>
+          </ul>
+        </div>
+
+        <div class="team-dir-card">
+          <div class="team-dir-top"><span class="team-priority">Priority 04</span><span class="team-emoji">📦</span></div>
+          <div class="team-dir-name">제품 개발 팀</div>
+          <ul class="team-agents">
+            <li>제품 기획자</li>
+            <li>디자인 문서 작성자</li>
+            <li>특허/디자인권 보조</li>
+          </ul>
+        </div>
+
+        <div class="team-dir-card">
+          <div class="team-dir-top"><span class="team-priority">Priority 05</span><span class="team-emoji">⚖️</span></div>
+          <div class="team-dir-name">법무/행정 팀</div>
+          <ul class="team-agents">
+            <li>상표 관리사</li>
+            <li>계약 검토사</li>
+            <li>콘텐츠 법률 보조</li>
+          </ul>
+        </div>
+
+        <div class="team-dir-card">
+          <div class="team-dir-top"><span class="team-priority">Priority 06</span><span class="team-emoji">👥</span></div>
+          <div class="team-dir-name">회원 관리 팀</div>
+          <ul class="team-agents">
+            <li>상담 응대 보조</li>
+            <li>세션 기록 관리</li>
+            <li>피드백 분석가</li>
+          </ul>
+        </div>
+
+        <div class="team-dir-card">
+          <div class="team-dir-top"><span class="team-priority">Priority 07</span><span class="team-emoji">📚</span></div>
+          <div class="team-dir-name">자기계발 팀</div>
+          <ul class="team-agents">
+            <li>스터디 플래너</li>
+            <li>개념 설명사</li>
+            <li>시험 출제자</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <div>
+      <span class="ait-label">구현 로드맵</span>
+      <div class="roadmap">
+        <div class="road-step">
+          <div class="road-num">01</div>
+          <div class="road-ctx">지금 · 아이패드</div>
+          <div class="road-title">프롬프트 완성 + 앱 테스트</div>
+        </div>
+        <div class="road-step">
+          <div class="road-num">02</div>
+          <div class="road-ctx">연휴 · 정리</div>
+          <div class="road-title">브랜드 문서 + 노션 정리</div>
+        </div>
+        <div class="road-step">
+          <div class="road-num">03</div>
+          <div class="road-ctx">인천 · 맥북</div>
+          <div class="road-title">Claude Code + 에이전트 구현</div>
+        </div>
+        <div class="road-step">
+          <div class="road-num">04</div>
+          <div class="road-ctx">이후 · 확장</div>
+          <div class="road-title">팀 연결 + 오케스트레이터</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
 </div><!-- /panels -->
 
 <script>
@@ -707,7 +839,7 @@ window.addEventListener('load', () => { if (getKey()) document.getElementById('k
 // ── 탭 전환 ──────────────────────────────────────────────────────
 function switchTab(id) {
   document.querySelectorAll('.tab').forEach((t, i) => {
-    const ids = ['clinical','sns','strategy','brand'];
+    const ids = ['clinical','sns','strategy','brand','aiteam'];
     t.classList.toggle('active', ids[i] === id);
   });
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
