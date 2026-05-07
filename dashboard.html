@@ -212,12 +212,7 @@
     .btn-copy-rc,.btn-del { font-size:11px; padding:3px 8px; background:none; border:1px solid var(--border); border-radius:2px; color:var(--muted); cursor:pointer; transition:all .15s; }
     .btn-copy-rc:hover { border-color:var(--accent); color:var(--accent); }
     .btn-del:hover { border-color:#C06060; color:#C06060; }
-    .rcard-prev { padding:14px 16px; font-size:13px; color:var(--muted); line-height:1.75; white-space:pre-wrap; word-break:break-word; max-height:160px; overflow:hidden; position:relative; }
-    .rcard-prev.expanded { max-height:none; }
-    .rcard-prev::after { content:''; position:absolute; bottom:0; left:0; right:0; height:40px; background:linear-gradient(transparent,var(--card)); pointer-events:none; }
-    .rcard-prev.expanded::after { display:none; }
-    .rcard-expand { display:block; width:100%; padding:8px; font-size:11px; color:var(--light); background:none; border:none; border-top:1px solid var(--border); cursor:pointer; text-align:center; transition:color .15s; }
-    .rcard-expand:hover { color:var(--accent); }
+    .rcard-prev { padding:14px 16px; font-size:13px; color:var(--muted); line-height:1.75; white-space:pre-wrap; word-break:break-word; }
     .rcard-input { padding:8px 16px; border-top:1px solid var(--border); font-size:11px; color:var(--light); }
 
     .loading-anim::after { content:''; animation:ld 1.2s steps(4,end) infinite; }
@@ -687,8 +682,6 @@ function renderResultsPanel() {
     return `<div class="res-group">
       <div class="res-group-date">${lbl}</div>
       ${items.map(r=>{
-        const preview = r.output.slice(0,300);
-        const hasMore = r.output.length > 300;
         return `<div class="rcard">
           <div class="rcard-head">
             <div class="rcard-meta">
@@ -703,8 +696,7 @@ function renderResultsPanel() {
             </div>
           </div>
           ${r.input?`<div class="rcard-input">입력: ${esc(r.input.slice(0,80))}${r.input.length>80?'…':''}</div>`:''}
-          <div class="rcard-prev${r.starred?' expanded':''}" id="rc-prev-${r.id}">${esc(preview)}${hasMore&&!r.starred?'…':''}</div>
-          ${hasMore?`<button class="rcard-expand" id="rc-exp-${r.id}" onclick="toggleExpand('${r.id}')">${r.starred?'접기':'더 보기'}</button>`:''}
+          <div class="rcard-prev" id="rc-prev-${r.id}">${esc(r.output)}</div>
         </div>`;
       }).join('')}
     </div>`;
