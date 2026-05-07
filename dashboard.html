@@ -175,6 +175,16 @@
     .case-blk-t ol li { margin-bottom:3px; }
     .case-tags { display:flex; flex-wrap:wrap; gap:6px; margin-top:12px; padding-top:12px; border-top:1px solid var(--border); }
     .ctag { font-size:11px; padding:3px 8px; background:var(--bg); color:var(--muted); border:1px solid var(--border); border-radius:2px; }
+    .papers-wrap { margin-top:14px; padding-top:14px; border-top:1px solid var(--border); }
+    .papers-lbl { font-size:10px; letter-spacing:.12em; color:var(--light); display:block; margin-bottom:10px; }
+    .paper-card { background:var(--bg); border:1px solid var(--border); border-radius:3px; padding:12px 14px; margin-bottom:8px; }
+    .paper-card:last-child { margin-bottom:0; }
+    .paper-head { display:flex; justify-content:space-between; align-items:flex-start; gap:10px; margin-bottom:4px; }
+    .paper-ttl  { font-size:13px; font-weight:500; color:var(--text); line-height:1.5; flex:1; }
+    .paper-link { font-size:11px; padding:3px 9px; background:var(--accent); color:#fff; border-radius:2px; white-space:nowrap; text-decoration:none; flex-shrink:0; transition:opacity .15s; }
+    .paper-link:hover { opacity:.82; }
+    .paper-src  { font-size:11px; color:var(--light); margin-bottom:5px; }
+    .paper-sum  { font-size:12px; color:var(--muted); line-height:1.65; }
 
     /* Results panel */
     .res-panel-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; }
@@ -373,6 +383,41 @@
         <div class="case-blk"><div class="case-blk-l">가 설</div><div class="case-blk-t"><ol><li>복직근이개 → 복강내압 분산 실패 → 골반저근 만성 과부하·과긴장</li><li>골반 내 만성 염증 환경 → 자극 시 증상 발현</li><li>골반저근 과긴장 → 자궁·난소 혈류 감소 → 착상 환경 저하</li></ol></div></div>
         <div class="case-blk"><div class="case-blk-l">해부학 키워드</div><div class="case-blk-t">linea alba · transversus abdominis · pudendal nerve · levator ani · 복강내압(IAP) · 자궁내막 혈류</div></div>
         <div class="case-tags"><span class="ctag">골반저근</span><span class="ctag">과긴장</span><span class="ctag">방광</span><span class="ctag">복직근이개</span><span class="ctag">임신준비</span><span class="ctag">복강내압</span><span class="ctag">혈류</span></div>
+        <div class="papers-wrap">
+          <span class="papers-lbl">참고 논문</span>
+          <div class="paper-card">
+            <div class="paper-head">
+              <span class="paper-ttl">Pelvic Floor Therapy and Fertility</span>
+              <a class="paper-link" href="https://rebornphw.com/fertility/" target="_blank" rel="noopener">원문 →</a>
+            </div>
+            <div class="paper-src">Reborn Pelvic Health &amp; Wellness</div>
+            <div class="paper-sum">골반저근 과긴장 시 난소·자궁 혈류 제한. IUI 전 이완이 착상률 향상에 기여.</div>
+          </div>
+          <div class="paper-card">
+            <div class="paper-head">
+              <span class="paper-ttl">Bladder Pain Syndrome due to Pudendal Nerve Compression</span>
+              <a class="paper-link" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7060083/" target="_blank" rel="noopener">원문 →</a>
+            </div>
+            <div class="paper-src">Gohritz &amp; Dellon, 2020 · PMC</div>
+            <div class="paper-sum">세균 없이도 pudendal nerve 압박만으로 방광염 증상 발생. 반복 방광염 시 신경 압박 가능성 반드시 확인 필요.</div>
+          </div>
+          <div class="paper-card">
+            <div class="paper-head">
+              <span class="paper-ttl">Diastasis Recti Abdominis — Diagnosis, Risk Factors, Effect on Musculoskeletal Function, Framework for Treatment and Implications for the Pelvic Floor</span>
+              <a class="paper-link" href="https://www.benthamscience.com/article/88750" target="_blank" rel="noopener">원문 →</a>
+            </div>
+            <div class="paper-src">ScienceDirect / Bentham Science, 2018</div>
+            <div class="paper-sum">복직근이개 → 복횡근 약화 → 복강내압 조절 실패 → 골반저근 하방 전위. 복직근이개 교정 없이 골반저근만 이완하면 재발 반복.</div>
+          </div>
+          <div class="paper-card">
+            <div class="paper-head">
+              <span class="paper-ttl">The relationship of severity in diastasis recti abdominis and pelvic floor dysfunction</span>
+              <a class="paper-link" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7885475/" target="_blank" rel="noopener">원문 →</a>
+            </div>
+            <div class="paper-src">PMC, 2021</div>
+            <div class="paper-sum">복직근이개 있는 여성에서 골반저근 약화, 요실금, 골반장기탈출 발생률 높음.</div>
+          </div>
+        </div>
       </div>
       <div class="case-card">
         <div class="case-meta"><span class="case-id">INS-2026-002</span><span class="case-dt">2025.05.02</span></div>
@@ -381,6 +426,17 @@
         <div class="case-blk"><div class="case-blk-l">가 설</div><div class="case-blk-t"><ol><li>하지정맥류 판막 이상 → 골반 내 정맥 울혈 → 난소 혈류 정체</li><li>플랫백+후방경사 → 골반저근 기능 저하 + 복강내압 붕괴</li><li>복직근이개 → 복횡근 약화 → 골반저근 과부하 심화</li><li>역C자 목 → 교감신경 과활성 → 복부 냉감</li></ol></div></div>
         <div class="case-blk"><div class="case-blk-l">해부학 키워드</div><div class="case-blk-t">난소정맥 · 골반 정맥총 · 복강내압 · 복횡근 · 골반저근 · 요추 전만 · 교감신경</div></div>
         <div class="case-tags"><span class="ctag">골반저근</span><span class="ctag">복직근이개</span><span class="ctag">하지정맥</span><span class="ctag">혈류</span><span class="ctag">임신준비</span><span class="ctag">체형</span><span class="ctag">후방경사</span><span class="ctag">골반울혈</span></div>
+        <div class="papers-wrap">
+          <span class="papers-lbl">참고 논문</span>
+          <div class="paper-card">
+            <div class="paper-head">
+              <span class="paper-ttl">Pelvic Congestion Impact on Fertility</span>
+              <a class="paper-link" href="https://cavascular.com/pelvic-congestion-impact-fertility-doctor/" target="_blank" rel="noopener">원문 →</a>
+            </div>
+            <div class="paper-src">CVI CAVascular</div>
+            <div class="paper-sum">골반 정맥압 상승 → 자궁 혈류 저하 → 착상 환경 저하. 원인 불명 불임의 주요 원인 중 하나.</div>
+          </div>
+        </div>
       </div>
     </div>
 
