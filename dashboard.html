@@ -110,6 +110,10 @@
     .btn-copy-res { font-size:11px; padding:4px 10px; background:none; border:1px solid var(--border); border-radius:3px; color:var(--muted); cursor:pointer; transition:all .2s; }
     .btn-copy-res:hover  { border-color:var(--accent); color:var(--accent); }
     .btn-copy-res.copied { border-color:#4A6741; color:#4A6741; }
+    .btn-save-result { display:block; width:100%; margin-top:12px; padding:12px; background:none; border:1px solid var(--accent); border-radius:3px; font-size:12px; letter-spacing:.12em; color:var(--accent); cursor:pointer; transition:all .2s; }
+    .btn-save-result:hover:not(:disabled) { background:var(--accent); color:#fff; }
+    .btn-save-result.saved { background:var(--c-clinical); border-color:var(--c-clinical); color:#fff; cursor:default; opacity:1; }
+    .btn-save-result:disabled { cursor:default; }
     .res-body { background:var(--card); border:1px solid var(--border); border-radius:3px; padding:22px 20px; font-size:14px; line-height:1.9; color:var(--text); white-space:pre-wrap; word-break:break-word; }
     .res-body .rh { display:block; font-size:11px; font-weight:600; letter-spacing:.1em; color:var(--accent); margin:18px 0 6px; }
     .res-body .rh:first-child { margin-top:0; }
@@ -261,6 +265,7 @@
           <button class="btn-copy-res" id="btn-copy-res" onclick="copyAgentResult()">복사</button>
         </div>
         <div class="res-body" id="res-body"></div>
+        <button class="btn-save-result" id="btn-save-result" onclick="saveManual()" style="display:none">결과 저장하기</button>
       </div>
       <div id="cap-grid-wrap" style="display:none"></div>
     </div>
@@ -646,6 +651,10 @@ function selectAgent(teamId, agentId) {
   document.getElementById('res-wrap').classList.remove('visible');
   document.getElementById('cap-grid-wrap').style.display = 'none';
   document.getElementById('err-box').classList.remove('visible');
+  document.getElementById('btn-save-result').style.display = 'none';
+  document.getElementById('btn-save-result').textContent = '결과 저장하기';
+  document.getElementById('btn-save-result').disabled = false;
+  document.getElementById('btn-save-result').classList.remove('saved');
   lastOutput = '';
   showPanel('ws-agent');
   ta.focus();
@@ -685,25 +694,35 @@ async function runAgent() {
     if (isSNSCopy) {
       const data = extractJSON(raw);
       if (!data) throw new Error('캡션 파싱 실패. 다시 시도해주세요.');
+      lastOutput = ['a','b','c'].map((k,i)=>{const d=data[k]||{};return `[${['A','B','C'][i]}안]\n${(d.caption||'').replace(/\\n/g,'\n')}\n${d.hashtags||''}`;}).join('\n\n---\n\n');
       capWrap.innerHTML = `<div class="cap-grid">${['a','b','c'].map((k,i)=>{
         const cap = data[k]||{}; const full = (cap.caption||'').replace(/\\n/g,'\n')+'\n\n'+(cap.hashtags||'');
         return `<div class="cap-card"><div class="cap-label">${['A안','B안','C안'][i]}</div><div class="cap-text">${esc((cap.caption||'').replace(/\\n/g,'\n'))}</div><div class="cap-tags">${esc(cap.hashtags||'')}</div><button class="cap-copy" onclick="navigator.clipboard.writeText(decodeURIComponent('${encodeURIComponent(full)}')).then(()=>{this.textContent='복사됨';setTimeout(()=>this.textContent='복사',2000)})">복사</button></div>`;
-      }).join('')}</div>`;
-      lastOutput = ['a','b','c'].map((k,i)=>{const d=data[k]||{};return `[${['A','B','C'][i]}안]\n${(d.caption||'').replace(/\\n/g,'\n')}\n${d.hashtags||''}`;}).join('\n\n---\n\n');
+      }).join('')}</div><button class="btn-save-result" id="btn-cap-save" onclick="saveManual()">결과 저장하기</button>`;
     } else {
       lastOutput = raw;
       document.getElementById('res-body').innerHTML = renderMD(raw);
       document.getElementById('res-time').textContent = nowTime();
       document.getElementById('btn-copy-res').className = 'btn-copy-res';
+      document.getElementById('btn-save-result').style.display = 'block';
     }
-    saveResult(agent, team, input, lastOutput);
-    updateResultsBadge();
   } catch(e) {
     resWrap.classList.remove('visible'); capWrap.style.display='none';
     err.textContent = e.message; err.classList.add('visible');
   } finally {
     btn.disabled = false; ta.disabled = false;
   }
+}
+
+function saveManual() {
+  if (!activeAgent || !lastOutput) return;
+  const input = document.getElementById('task-input').value.trim();
+  saveResult(activeAgent.agent, activeAgent.team, input, lastOutput);
+  updateResultsBadge();
+  ['btn-save-result','btn-cap-save'].forEach(id => {
+    const btn = document.getElementById(id);
+    if (btn) { btn.textContent = '저장됨 ✓'; btn.disabled = true; btn.classList.add('saved'); }
+  });
 }
 
 function copyAgentResult() {
