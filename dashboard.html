@@ -218,6 +218,50 @@
     .loading-anim::after { content:''; animation:ld 1.2s steps(4,end) infinite; }
     @keyframes ld { 0%{content:''} 25%{content:'.'} 50%{content:'..'} 75%{content:'...'} }
 
+    /* ── 동작 분석 탭 ── */
+    .mov-tabs { display:flex; border-bottom:1px solid var(--border); margin-bottom:24px; }
+    .mov-tab  { flex:1; padding:10px 4px; text-align:center; font-size:11px; letter-spacing:.06em; color:var(--light); cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-1px; background:none; border-top:none; border-left:none; border-right:none; transition:all .2s; white-space:nowrap; }
+    .mov-tab:hover { color:var(--muted); }
+    .mov-tab.active { color:var(--accent); border-bottom-color:var(--accent); font-weight:500; }
+    .mov-sub { display:none; }
+    .mov-sub.active { display:block; }
+    .mov-label { font-size:10px; letter-spacing:.12em; color:var(--light); display:block; margin:16px 0 8px; }
+    .mov-input { width:100%; padding:11px 14px; border:1px solid var(--border); border-radius:3px; background:var(--card); color:var(--text); font-size:14px; font-family:inherit; outline:none; transition:border-color .2s; }
+    .mov-input:focus { border-color:var(--accent); }
+    .char-pills { display:flex; flex-wrap:wrap; gap:6px; }
+    .char-pill  { font-size:11px; padding:5px 10px; border:1px solid var(--border); border-radius:2px; background:none; color:var(--muted); cursor:pointer; transition:all .15s; }
+    .char-pill:hover { border-color:var(--accent); color:var(--accent); }
+    .char-pill.on { background:var(--accent); border-color:var(--accent); color:#fff; }
+    .mov-result { background:var(--card); border:1px solid var(--border); border-radius:3px; padding:20px; font-size:13px; line-height:1.9; color:var(--text); white-space:pre-wrap; word-break:break-word; margin-top:16px; }
+    .mov-result .rh { display:block; font-size:11px; font-weight:600; letter-spacing:.1em; color:var(--accent); margin:16px 0 5px; }
+    .mov-result .rh:first-child { margin-top:0; }
+    .mov-act-row { display:flex; gap:8px; margin-top:10px; }
+    .rt-movement { background:#3A5068; }
+    /* Library */
+    .lib-top    { display:flex; gap:8px; align-items:center; margin-bottom:10px; }
+    .lib-search { flex:1; padding:10px 14px; border:1px solid var(--border); border-radius:3px; background:var(--card); color:var(--text); font-size:13px; font-family:inherit; outline:none; transition:border-color .2s; }
+    .lib-search:focus { border-color:var(--accent); }
+    .btn-add-mov { padding:9px 16px; background:var(--accent); color:#fff; border:none; border-radius:3px; font-size:12px; letter-spacing:.1em; cursor:pointer; white-space:nowrap; transition:opacity .2s; flex-shrink:0; }
+    .btn-add-mov:hover { opacity:.85; }
+    .lib-empty  { text-align:center; padding:40px 0; font-size:13px; color:var(--light); }
+    .lib-card   { background:var(--card); border:1px solid var(--border); border-radius:3px; padding:14px 16px; margin-bottom:8px; }
+    .lib-card-top { display:flex; justify-content:space-between; align-items:flex-start; gap:8px; margin-bottom:8px; }
+    .lib-name   { font-size:14px; font-weight:500; color:var(--text); }
+    .lib-del    { background:none; border:none; font-size:16px; color:var(--light); cursor:pointer; transition:color .15s; }
+    .lib-del:hover { color:#C06060; }
+    .lib-meta   { display:flex; gap:6px; flex-wrap:wrap; }
+    .lib-badge  { font-size:10px; padding:3px 7px; border-radius:2px; background:var(--bg); border:1px solid var(--border); color:var(--muted); }
+    .dif-기초   { background:#EDF3EF; color:#4A6741; border-color:#C8DDCA; }
+    .dif-초급   { background:#E8EEF4; color:#3A5068; border-color:#C2D0DC; }
+    .dif-중급   { background:#F5EDD8; color:#8B6914; border-color:#DDD0AA; }
+    .dif-고급   { background:#F7EDED; color:#8B4040; border-color:#DCC0C0; }
+    .lib-tag    { font-size:10px; padding:2px 6px; background:var(--alt); color:var(--accent); border-radius:2px; }
+    .lib-notes  { font-size:12px; color:var(--muted); margin-top:6px; line-height:1.6; }
+    /* Mov modal */
+    .mov-modal-overlay { position:fixed; inset:0; background:rgba(231,224,216,.88); display:flex; align-items:center; justify-content:center; z-index:150; backdrop-filter:blur(6px); }
+    .mov-modal-overlay.hidden { display:none; }
+    .mov-modal-box { background:var(--card); border:1px solid var(--border); border-radius:3px; padding:28px 26px; width:100%; max-width:480px; margin:16px; max-height:88vh; overflow-y:auto; }
+
     /* ── 콘텐츠 기획판 ── */
     .plan-modal-overlay { position:fixed; inset:0; background:rgba(231,224,216,.88); display:flex; align-items:center; justify-content:center; z-index:150; backdrop-filter:blur(6px); }
     .plan-modal-overlay.hidden { display:none; }
@@ -304,6 +348,27 @@
     <label class="pm-label">메모 (선택)</label>
     <textarea class="pm-textarea" id="pm-note" placeholder="참고 사항, 레퍼런스, 아이디어 상세..." rows="2"></textarea>
     <button class="pm-save" onclick="addIdea()">저장하기</button>
+  </div>
+</div>
+
+<!-- 동작 라이브러리 추가 모달 -->
+<div class="mov-modal-overlay hidden" id="mov-modal">
+  <div class="mov-modal-box">
+    <div class="pm-head">
+      <span class="pm-title">동작 추가</span>
+      <button class="pm-close" onclick="closeMovModal()">×</button>
+    </div>
+    <label class="pm-label">동작 이름</label>
+    <input class="mov-input" id="mm-name" placeholder="예: Footwork, Elephant, Roll Down...">
+    <label class="pm-label">카테고리</label>
+    <div class="pm-pills" id="mm-cats"></div>
+    <label class="pm-label">난이도</label>
+    <div class="pm-pills" id="mm-diffs"></div>
+    <label class="pm-label">타겟 부위</label>
+    <div class="pm-pills" id="mm-targets"></div>
+    <label class="pm-label">메모 (선택)</label>
+    <textarea class="pm-textarea" id="mm-note" placeholder="큐잉, 주의사항, 개인 노트..." rows="2"></textarea>
+    <button class="pm-save" onclick="saveMovLib()">저장하기</button>
   </div>
 </div>
 
@@ -595,6 +660,81 @@
       </div>
     </div>
 
+    <!-- Movement Analysis -->
+    <div class="ws-panel" id="ws-movement">
+      <div class="mov-tabs">
+        <button class="mov-tab active" data-tab="analysis" onclick="switchMovTab('analysis')">동작 분석</button>
+        <button class="mov-tab" data-tab="library"  onclick="switchMovTab('library')">라이브러리</button>
+        <button class="mov-tab" data-tab="strategy" onclick="switchMovTab('strategy')">수정 전략</button>
+        <button class="mov-tab" data-tab="sequence" onclick="switchMovTab('sequence')">시퀀스 설계</button>
+      </div>
+
+      <!-- 1. 동작 분석 AI -->
+      <div class="mov-sub active" id="msub-analysis">
+        <label class="mov-label">동작 이름</label>
+        <input class="mov-input" id="ma-name" placeholder="예: Footwork, Elephant, Swan, Roll Up...">
+        <label class="mov-label">회원 특성 (복수 선택)</label>
+        <div class="char-pills" id="ma-chars"></div>
+        <button class="btn-run" style="margin-top:16px" id="ma-btn" onclick="runMovAnalysis()">분석하기</button>
+        <div class="err-box" id="ma-err"></div>
+        <div id="ma-result" style="display:none">
+          <div class="mov-result" id="ma-body"></div>
+          <div class="mov-act-row">
+            <button class="btn-copy-res" id="ma-copy" onclick="copyMovResult('ma-copy','ma')">복사</button>
+            <button class="btn-save-result" id="ma-save" onclick="saveMovResult('ma')">결과 저장하기</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. 동작 라이브러리 -->
+      <div class="mov-sub" id="msub-library">
+        <div class="lib-top">
+          <input class="lib-search" id="lib-search" placeholder="동작 이름 또는 타겟 부위 검색..." oninput="renderLibrary()">
+          <button class="btn-add-mov" onclick="openMovModal()">+ 동작 추가</button>
+        </div>
+        <div class="plan-filter-row" id="lib-cat-f"></div>
+        <div id="lib-list"></div>
+      </div>
+
+      <!-- 3. 회원별 수정 전략 -->
+      <div class="mov-sub" id="msub-strategy">
+        <label class="mov-label">회원 이름 (선택)</label>
+        <input class="mov-input" id="ms-member" placeholder="예: 김○○ 회원 (생략 가능)">
+        <label class="mov-label">회원 특성 (복수 선택)</label>
+        <div class="char-pills" id="ms-chars"></div>
+        <label class="mov-label">분석할 동작</label>
+        <input class="mov-input" id="ms-move" placeholder="예: Hundred, Short Spine, Long Stretch...">
+        <button class="btn-run" style="margin-top:16px" id="ms-btn" onclick="runMovStrategy()">전략 생성</button>
+        <div class="err-box" id="ms-err"></div>
+        <div id="ms-result" style="display:none">
+          <div class="mov-result" id="ms-body"></div>
+          <div class="mov-act-row">
+            <button class="btn-copy-res" id="ms-copy" onclick="copyMovResult('ms-copy','ms')">복사</button>
+            <button class="btn-save-result" id="ms-save" onclick="saveMovResult('ms')">결과 저장하기</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. 수업 시퀀스 설계 -->
+      <div class="mov-sub" id="msub-sequence">
+        <label class="mov-label">수업 목표</label>
+        <textarea class="fld" id="sq-goal" placeholder="예: 산후 코어 회복, 거북목 개선, 골반저근 이완, 척추 분절 회복..." style="min-height:70px"></textarea>
+        <label class="mov-label">장비</label>
+        <div class="char-pills" id="sq-equip"></div>
+        <label class="mov-label">대상 회원 특성 (복수 선택)</label>
+        <div class="char-pills" id="sq-chars"></div>
+        <button class="btn-run" style="margin-top:16px" id="sq-btn" onclick="runSequence()">시퀀스 설계</button>
+        <div class="err-box" id="sq-err"></div>
+        <div id="sq-result" style="display:none">
+          <div class="mov-result" id="sq-body"></div>
+          <div class="mov-act-row">
+            <button class="btn-copy-res" id="sq-copy" onclick="copyMovResult('sq-copy','sq')">복사</button>
+            <button class="btn-save-result" id="sq-save" onclick="saveMovResult('sq')">결과 저장하기</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Plan Board -->
     <div class="ws-panel" id="ws-plan">
       <div class="plan-top">
@@ -840,7 +980,8 @@ function selectPage(pageId) {
   clearAgentSidebarActive(); clearPageSidebarActive();
   document.getElementById(`nav-${pageId}`)?.classList.add('active');
   if (pageId==='results') { renderResultsPanel(); showPanel('ws-results'); }
-  else if (pageId==='plan') { renderPlanBoard(); showPanel('ws-plan'); }
+  else if (pageId==='plan')     { renderPlanBoard(); showPanel('ws-plan'); }
+  else if (pageId==='movement') { showPanel('ws-movement'); }
   else { showPanel(`ws-${pageId}`); }
 }
 
@@ -924,7 +1065,8 @@ function buildSidebar() {
     <button class="page-btn" id="nav-brand" onclick="selectPage('brand')">브랜드</button>
     <button class="page-btn" id="nav-clinical-db" onclick="selectPage('clinical-db')">임상 지식 DB</button>
     <button class="page-btn" id="nav-results" onclick="selectPage('results')">결과 모아보기 <span class="res-badge" id="res-count-badge"></span></button>
-    <button class="page-btn" id="nav-plan" onclick="selectPage('plan')">콘텐츠 기획판</button>
+    <button class="page-btn" id="nav-plan"     onclick="selectPage('plan')">콘텐츠 기획판</button>
+    <button class="page-btn" id="nav-movement" onclick="selectPage('movement')">동작 분석</button>
     <button class="sb-key" onclick="showKeySettings()">API 키 변경</button>
   `;
 }
@@ -1043,9 +1185,199 @@ document.getElementById('plan-modal').addEventListener('click', e => {
   if (e.target===document.getElementById('plan-modal')) closePlanModal();
 });
 
+// ── 동작 분석 ─────────────────────────────────────────────────
+const CHARS   = ['복직근이개','거북목','골반저근과긴장','하지정맥류','플랫백','산후','고관절제한','후방경사','척추측만','어깨충돌증후군'];
+const EQUIPS  = ['매트','리포머','체어','배럴'];
+const MOV_CAT = ['매트','리포머','체어','배럴'];
+const MOV_DIF = ['기초','초급','중급','고급'];
+const MOV_TGT = ['코어','척추','골반','어깨','다리','팔','전신','호흡'];
+const MVK     = 'moomua_movements';
+
+const maChars = new Set(), msChars = new Set(), sqChars = new Set(), sqEquip = new Set();
+const movResults = {};
+let libCatF = '전체', mmCatV = '리포머', mmDifV = '초급';
+const mmTgtV = new Set();
+
+function initMovPills() {
+  const mk = (cid, items, set, fn) => {
+    document.getElementById(cid).innerHTML = items.map(v =>
+      `<button class="char-pill${set.has(v)?' on':''}" onclick="${fn}('${v}',this)">${v}</button>`).join('');
+  };
+  mk('ma-chars', CHARS,  maChars, 'toggleChar_ma');
+  mk('ms-chars', CHARS,  msChars, 'toggleChar_ms');
+  mk('sq-chars', CHARS,  sqChars, 'toggleChar_sq');
+  mk('sq-equip', EQUIPS, sqEquip, 'toggleChar_se');
+}
+function toggleChar_ma(v,el){ maChars.has(v)?maChars.delete(v):maChars.add(v); el.classList.toggle('on'); }
+function toggleChar_ms(v,el){ msChars.has(v)?msChars.delete(v):msChars.add(v); el.classList.toggle('on'); }
+function toggleChar_sq(v,el){ sqChars.has(v)?sqChars.delete(v):sqChars.add(v); el.classList.toggle('on'); }
+function toggleChar_se(v,el){ sqEquip.has(v)?sqEquip.delete(v):sqEquip.add(v); el.classList.toggle('on'); }
+
+function switchMovTab(id) {
+  document.querySelectorAll('.mov-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.mov-sub').forEach(s => s.classList.remove('active'));
+  document.querySelector(`.mov-tab[data-tab="${id}"]`).classList.add('active');
+  document.getElementById(`msub-${id}`).classList.add('active');
+  if (id === 'library') renderLibrary();
+}
+
+async function runMovAnalysis() {
+  const name = document.getElementById('ma-name').value.trim();
+  if (!name) { document.getElementById('ma-name').focus(); return; }
+  if (!getKey()) { showKeySettings(); return; }
+  const chars = [...maChars].join(', ') || '없음';
+  await _movRun('ma', `동작: ${name}\n회원 특성: ${chars}`,
+    `당신은 MOOMUA 임상 필라테스 분석 에이전트입니다.
+
+## 동작 개요
+(동작의 목적과 주요 움직임)
+## 근육 분석
+주동근 / 협력근 / 길항근 / 안정화근 구분
+## 일반 큐잉
+(효과적인 큐잉 2-3개)
+## 회원 맞춤 수정
+(각 특성별 구체적 수정 방법)
+## 반드시 피할 것
+## 대안/준비 동작`,
+    `[동작 분석] ${name}`);
+}
+
+async function runMovStrategy() {
+  const move = document.getElementById('ms-move').value.trim();
+  if (!move) { document.getElementById('ms-move').focus(); return; }
+  if (!getKey()) { showKeySettings(); return; }
+  const member = document.getElementById('ms-member').value.trim();
+  const chars  = [...msChars].join(', ') || '없음';
+  await _movRun('ms', `${member?'회원: '+member+'\n':''}특성: ${chars}\n동작: ${move}`,
+    `당신은 MOOMUA 필라테스 임상 에이전트입니다.
+
+## 회원 특성 분석
+## 동작별 위험 요소
+## 단계별 수정 방법 (우선순위 순)
+## 맞춤 큐잉
+## 진행 기준`,
+    `[수정 전략] ${move}`);
+}
+
+async function runSequence() {
+  const goal = document.getElementById('sq-goal').value.trim();
+  if (!goal) { document.getElementById('sq-goal').focus(); return; }
+  if (!getKey()) { showKeySettings(); return; }
+  const equips = [...sqEquip].join(', ') || '매트';
+  const chars  = [...sqChars].join(', ')  || '없음';
+  await _movRun('sq', `목표: ${goal}\n장비: ${equips}\n대상 특성: ${chars}`,
+    `당신은 MOOMUA 필라테스 수업 설계 에이전트입니다.
+
+## 수업 설계 원칙
+## 시퀀스 (순서대로)
+동작명 | 스프링/저항 | 반복 | 핵심 큐잉 | 수정 포인트
+## 금지 동작 (이유 포함)
+## 단계별 진행 방법`,
+    `[시퀀스] ${goal.slice(0,30)}`, 2200);
+}
+
+async function _movRun(p, userMsg, sysPrompt, label, maxTk=1800) {
+  const btn = document.getElementById(`${p}-btn`);
+  const err = document.getElementById(`${p}-err`);
+  const res = document.getElementById(`${p}-result`);
+  err.classList.remove('visible'); btn.disabled=true;
+  res.style.display='block';
+  document.getElementById(`${p}-body`).innerHTML='<span class="loading-anim">처리 중</span>';
+  resetMovSaveBtn(`${p}-save`);
+  try {
+    const raw = await callClaude(sysPrompt, userMsg, maxTk);
+    movResults[p] = { text:raw, label };
+    document.getElementById(`${p}-body`).innerHTML = renderMD(raw);
+  } catch(e) {
+    res.style.display='none'; err.textContent=e.message; err.classList.add('visible');
+  } finally { btn.disabled=false; }
+}
+
+function copyMovResult(btnId, p) {
+  const r = movResults[p]; if (!r) return;
+  navigator.clipboard.writeText(r.text).then(() => {
+    const btn = document.getElementById(btnId);
+    if (btn) { btn.textContent='복사됨'; setTimeout(()=>{ btn.textContent='복사'; },2000); }
+  });
+}
+function saveMovResult(p) {
+  const r = movResults[p]; if (!r) return;
+  saveResult({ name:r.label }, { name:'동작 분석', id:'movement' }, '', r.text);
+  updateResultsBadge();
+  resetMovSaveBtn(`${p}-save`, true);
+}
+function resetMovSaveBtn(id, saved=false) {
+  const btn = document.getElementById(id);
+  if (!btn) return;
+  btn.textContent = saved ? '저장됨 ✓' : '결과 저장하기';
+  btn.disabled = saved; btn.classList.toggle('saved', saved);
+}
+
+// Library
+function getMov() { try { return JSON.parse(localStorage.getItem(MVK)||'[]'); } catch { return []; } }
+function setMov(a) { localStorage.setItem(MVK, JSON.stringify(a)); }
+
+function openMovModal() {
+  mmCatV='리포머'; mmDifV='초급'; mmTgtV.clear();
+  document.getElementById('mm-name').value=''; document.getElementById('mm-note').value='';
+  renderMovModal();
+  document.getElementById('mov-modal').classList.remove('hidden');
+  document.getElementById('mm-name').focus();
+}
+function closeMovModal() { document.getElementById('mov-modal').classList.add('hidden'); }
+
+function renderMovModal() {
+  document.getElementById('mm-cats').innerHTML    = MOV_CAT.map(c=>`<button class="pm-pill${c===mmCatV?' active':''}" onclick="mmCatV='${c}';renderMovModal()">${c}</button>`).join('');
+  document.getElementById('mm-diffs').innerHTML   = MOV_DIF.map(d=>`<button class="pm-pill${d===mmDifV?' active':''}" onclick="mmDifV='${d}';renderMovModal()">${d}</button>`).join('');
+  document.getElementById('mm-targets').innerHTML = MOV_TGT.map(t=>`<button class="pm-pill${mmTgtV.has(t)?' active':''}" onclick="mmTgtV.has('${t}')?mmTgtV.delete('${t}'):mmTgtV.add('${t}');renderMovModal()">${t}</button>`).join('');
+}
+
+function saveMovLib() {
+  const name = document.getElementById('mm-name').value.trim();
+  if (!name) { document.getElementById('mm-name').focus(); return; }
+  const arr = getMov();
+  arr.unshift({ id:Date.now().toString(), name, category:mmCatV, difficulty:mmDifV,
+    tags:[...mmTgtV], notes:document.getElementById('mm-note').value.trim(), createdAt:new Date().toISOString() });
+  setMov(arr); closeMovModal(); renderLibrary();
+}
+
+function deleteMovItem(id) {
+  if (!confirm('삭제하시겠어요?')) return;
+  setMov(getMov().filter(x=>x.id!==id)); renderLibrary();
+}
+
+function renderLibrary() {
+  document.getElementById('lib-cat-f').innerHTML = ['전체',...MOV_CAT].map(c=>
+    `<button class="pf-btn${c===libCatF?' active':''}" onclick="libCatF='${c}';renderLibrary()">${c}</button>`).join('');
+  let arr = getMov();
+  const q = (document.getElementById('lib-search')?.value||'').toLowerCase();
+  if (libCatF!=='전체') arr = arr.filter(x=>x.category===libCatF);
+  if (q) arr = arr.filter(x=>x.name.toLowerCase().includes(q)||x.tags.some(t=>t.toLowerCase().includes(q)));
+  const list = document.getElementById('lib-list');
+  if (!arr.length) { list.innerHTML='<div class="lib-empty">저장된 동작이 없습니다.<br>+ 동작 추가 버튼으로 라이브러리를 만들어보세요.</div>'; return; }
+  list.innerHTML = arr.map(item=>`
+    <div class="lib-card">
+      <div class="lib-card-top">
+        <div class="lib-name">${esc(item.name)}</div>
+        <button class="lib-del" onclick="deleteMovItem('${item.id}')">×</button>
+      </div>
+      <div class="lib-meta">
+        <span class="lib-badge">${esc(item.category)}</span>
+        <span class="lib-badge dif-${item.difficulty}">${item.difficulty}</span>
+        ${item.tags.map(t=>`<span class="lib-tag">${esc(t)}</span>`).join('')}
+      </div>
+      ${item.notes?`<div class="lib-notes">${esc(item.notes)}</div>`:''}
+    </div>`).join('');
+}
+
+document.getElementById('mov-modal').addEventListener('click', e => {
+  if (e.target===document.getElementById('mov-modal')) closeMovModal();
+});
+
 buildSidebar();
 buildWelcome();
 updateResultsBadge();
+initMovPills();
 </script>
 </body>
 </html>
