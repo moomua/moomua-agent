@@ -64,6 +64,7 @@ body {
 .week-label { font-size:10px; color:var(--muted); font-weight:400; letter-spacing:0.5px; }
 .week-num { width:34px; height:34px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:400; color:var(--text-dim); background:var(--surface); border:1px solid transparent; font-family:'Cormorant Garamond',serif; }
 .week-day.today .week-num { background:var(--gold); color:var(--bg); font-weight:600; border-color:var(--gold); }
+.week-day.selected .week-num { border-color:var(--gold); color:var(--gold); }
 .week-dot { width:4px; height:4px; border-radius:50%; background:transparent; }
 .week-day.has-class .week-dot { background:var(--gold-dim); }
 .week-day.today .week-dot { background:var(--gold); }
@@ -185,7 +186,7 @@ body {
   </div>
   <div class="divider-line"></div>
   <div class="section">
-    <div class="section-title">오늘 일정</div>
+    <div class="section-title" id="scheduleSectionTitle">오늘 일정</div>
     <div class="schedule-list" id="scheduleList"></div>
   </div>
   <div class="divider-line"></div>
@@ -519,6 +520,8 @@ function getStudy() {
 }
 
 // 주간 캘린더
+let selectedDay = now.getDay();
+
 function renderWeek() {
   const strip = document.getElementById('weekStrip');
   strip.innerHTML = '';
@@ -528,12 +531,26 @@ function renderWeek() {
   for (let i = 0; i < 7; i++) {
     const d = new Date(monday);
     d.setDate(monday.getDate() + i);
+    const dayNum = d.getDay();
     const isToday = d.toDateString() === now.toDateString();
+    const isSelected = dayNum === selectedDay && !isToday;
     const hasClass = [1,2,3,4,5].includes(i);
     const el = document.createElement('div');
-    el.className = 'week-day' + (isToday?' today':'') + (hasClass?' has-class':'');
-    el.innerHTML = `<div class="week-label">${DAYS[d.getDay()]}</div><div class="week-num">${d.getDate()}</div><div class="week-dot"></div>`;
+    el.className = 'week-day' + (isToday?' today':'') + (isSelected?' selected':'') + (hasClass?' has-class':'');
+    el.innerHTML = `<div class="week-label">${DAYS[dayNum]}</div><div class="week-num">${d.getDate()}</div><div class="week-dot"></div>`;
+    el.onclick = () => selectDay(dayNum);
     strip.appendChild(el);
+  }
+}
+
+function selectDay(day) {
+  selectedDay = day;
+  renderWeek();
+  renderSchedule();
+  const title = document.getElementById('scheduleSectionTitle');
+  if (title) {
+    const isToday = day === now.getDay();
+    title.textContent = isToday ? '오늘 일정' : `${DAYS[day]}요일 일정`;
   }
 }
 
@@ -622,7 +639,7 @@ const SCHEDULES = {
 function renderSchedule() {
   const list = document.getElementById('scheduleList');
   list.innerHTML = '';
-  const s = SCHEDULES[now.getDay()] || [];
+  const s = SCHEDULES[selectedDay] || [];
   const h = now.getHours();
   let currentIdx = -1;
   s.forEach((item, i) => {
