@@ -508,7 +508,15 @@ function getRoutines() {
 
 function getStudy() {
   const def = [
-    {id:1,name:'암재활 필라테스 이론강의',sub:'이번 주부터 시작!',total:12,done:0,color:'gold'},
+    {id:1,name:'⚡ 종합소득세 신고서류 준비',sub:'긴급 — 이번 주 안에',total:1,done:0,color:'gold'},
+    {id:2,name:'사이버대 지난주 강의 수강',sub:'2주치 밀림',total:2,done:0,color:'gold'},
+    {id:3,name:'사이버대 이번주 강의 수강',sub:'5월 2주차',total:1,done:0,color:'gold'},
+    {id:4,name:'🧵 동대문 원단시장',sub:'온열팩 원단 확인 · 금요일 20:30',total:1,done:0,color:'sage'},
+    {id:5,name:'🤸 MOOMUA 앱 마무리',sub:'dudu-assistant 업데이트',total:1,done:0,color:'sage'},
+  ];
+  const saved = localStorage.getItem('dudu_study');
+  return saved ? JSON.parse(saved) : def;
+},
     {id:2,name:'요가 수련',sub:'화요일 정기 수련',total:4,done:1,color:'sage'},
     {id:3,name:'해부학 · DNS · 자율신경계',sub:'자기계발 공부',total:20,done:3,color:'gold'},
   ];
@@ -540,37 +548,67 @@ const SCHEDULES = {
   1:[
     {time:'05:30',name:'기상 · 준비',sub:'씻고 출근 준비',type:'rest'},
     {time:'06:30',name:'출근',sub:'센터로',type:'rest'},
-    {time:'09:00–13:00',name:'오전 수업',sub:'회원 수업',type:'class'},
-    {time:'13:00–17:00',name:'황금 블록 ⭐',sub:'콘텐츠 · 브랜딩 작업',type:'free'},
-    {time:'17:30–21:30',name:'오후 수업',sub:'21:30 마감',type:'class'},
+    {time:'06:50',name:'회원 수업',sub:'',type:'class'},
+    {time:'09:00',name:'회원 수업',sub:'',type:'class'},
+    {time:'10:00',name:'회원 수업',sub:'',type:'class'},
+    {time:'11:00',name:'회원 수업',sub:'',type:'class'},
+    {time:'12:00',name:'회원 수업',sub:'',type:'class'},
+    {time:'13:00–18:00',name:'황금 블록 ⭐',sub:'종합소득세 서류 · MOOMUA 앱 · 사이버대 강의',type:'free'},
+    {time:'18:30',name:'회원 수업',sub:'',type:'class'},
+    {time:'19:30',name:'회원 수업',sub:'',type:'class'},
+    {time:'20:30',name:'회원 수업',sub:'마감',type:'class'},
   ],
   2:[
     {time:'05:30',name:'기상 · 준비',sub:'',type:'rest'},
-    {time:'06:30',name:'출근',sub:'첫 수업 06:50',type:'rest'},
-    {time:'06:50–13:00',name:'오전 수업',sub:'',type:'class'},
-    {time:'13:00–16:00',name:'요가 수련',sub:'이게 곧 공부이자 회복',type:'study'},
-    {time:'16:00–21:30',name:'오후 수업',sub:'21:30 마감',type:'class'},
+    {time:'08:00',name:'출근',sub:'첫 수업 08:30',type:'rest'},
+    {time:'08:30',name:'회원 수업',sub:'',type:'class'},
+    {time:'10:00',name:'회원 수업',sub:'',type:'class'},
+    {time:'11:00',name:'회원 수업',sub:'',type:'class'},
+    {time:'12:00',name:'회원 수업',sub:'',type:'class'},
+    {time:'16:00',name:'회원 수업',sub:'',type:'class'},
+    {time:'17:30',name:'회원 수업',sub:'',type:'class'},
+    {time:'18:30',name:'회원 수업',sub:'',type:'class'},
+    {time:'19:30',name:'회원 수업',sub:'',type:'class'},
+    {time:'20:30',name:'회원 수업',sub:'',type:'class'},
+    {time:'21:30',name:'회원 수업 마감',sub:'수고했어 🤍',type:'class'},
   ],
   3:[
     {time:'05:30',name:'기상 · 준비',sub:'',type:'rest'},
-    {time:'07:00',name:'출근',sub:'첫 수업 07:30',type:'rest'},
-    {time:'07:30–13:00',name:'오전 수업',sub:'',type:'class'},
-    {time:'14:00–17:30',name:'깊은 작업 블록 ⭐⭐',sub:'예약 포스팅 세팅까지',type:'free'},
-    {time:'17:30–21:30',name:'오후 수업',sub:'21:30 마감',type:'class'},
+    {time:'06:30',name:'출근',sub:'첫 수업 06:50',type:'rest'},
+    {time:'06:50',name:'회원 수업',sub:'',type:'class'},
+    {time:'11:00',name:'회원 수업',sub:'',type:'class'},
+    {time:'12:00',name:'회원 수업',sub:'',type:'class'},
+    {time:'13:30',name:'🧘 요가',sub:'개인 수업',type:'study'},
+    {time:'14:30–17:00',name:'황금 블록 ⭐',sub:'사이버대 강의 · 콘텐츠',type:'free'},
+    {time:'17:30',name:'회원 수업',sub:'',type:'class'},
+    {time:'18:30',name:'회원 수업',sub:'',type:'class'},
+    {time:'19:30',name:'회원 수업',sub:'마감',type:'class'},
   ],
   4:[
     {time:'05:30',name:'기상 · 준비',sub:'',type:'rest'},
     {time:'06:30',name:'출근',sub:'첫 수업 06:50',type:'rest'},
-    {time:'06:50–13:00',name:'오전 수업',sub:'',type:'class'},
-    {time:'13:00–17:30',name:'회복 · 낮잠 OK',sub:'피곤하면 진짜 자도 돼 🤍',type:'rest'},
-    {time:'17:30–21:30',name:'오후 수업',sub:'21:30 마감',type:'class'},
+    {time:'06:50',name:'회원 수업',sub:'',type:'class'},
+    {time:'09:00',name:'회원 수업',sub:'',type:'class'},
+    {time:'10:00',name:'회원 수업',sub:'',type:'class'},
+    {time:'12:00',name:'회원 수업',sub:'',type:'class'},
+    {time:'14:00',name:'📸 조카 돌사진 스튜디오',sub:'언니랑 함께',type:'free'},
+    {time:'17:30',name:'회원 수업',sub:'',type:'class'},
+    {time:'18:30',name:'회원 수업',sub:'',type:'class'},
+    {time:'19:30',name:'회원 수업',sub:'',type:'class'},
+    {time:'20:30',name:'회원 수업',sub:'마감',type:'class'},
   ],
   5:[
     {time:'05:30',name:'기상 · 준비',sub:'',type:'rest'},
     {time:'07:00',name:'출근',sub:'첫 수업 07:30',type:'rest'},
-    {time:'07:30–',name:'오전 수업',sub:'',type:'class'},
-    {time:'낮',name:'자유 · 볼일',sub:'억지로 작업 X',type:'free'},
-    {time:'17:00–21:00',name:'오후 수업',sub:'',type:'class'},
+    {time:'07:30',name:'회원 수업',sub:'',type:'class'},
+    {time:'09:00',name:'회원 수업',sub:'',type:'class'},
+    {time:'10:00',name:'회원 수업',sub:'',type:'class'},
+    {time:'12:00',name:'회원 수업',sub:'',type:'class'},
+    {time:'13:00',name:'점심 · 이동 준비',sub:'',type:'rest'},
+    {time:'17:00',name:'회원 수업',sub:'',type:'class'},
+    {time:'18:00',name:'회원 수업',sub:'',type:'class'},
+    {time:'19:00',name:'회원 수업',sub:'마감',type:'class'},
+    {time:'20:30',name:'🧵 동대문 원단시장',sub:'온열팩 원단 확인',type:'free'},
   ],
   6:[
     {time:'04:50',name:'기상',sub:'속초행 버스 준비',type:'rest'},
@@ -585,7 +623,7 @@ const SCHEDULES = {
     {time:'낮',name:'외식 · 카페 · 바다',sub:'',type:'free'},
     {time:'19:50',name:'인천 출발 🚗',sub:'11:30 도착',type:'rest'},
   ],
-};
+}
 
 function renderSchedule() {
   const list = document.getElementById('scheduleList');
@@ -1051,45 +1089,47 @@ function resetPlan() {
 
 // ── 주간 루틴 카드 ──
 const WEEK_ROUTINES = [
-  { day:'월', eng:'Mon', tag:'✍️ 콘텐츠 제작일', energy:2, badge:'badge-gold',
+  { day:'월', eng:'Mon', tag:'⭐ 황금 블록의 날', energy:2, badge:'badge-gold',
     blocks:[
       {time:'05:30',text:'기상 · 준비'},
       {time:'06:30',text:'출근'},
-      {time:'09:00–13:00',text:'오전 수업'},
-      {time:'13:00–17:00',text:'황금 블록 ⭐',highlight:true,sub:'릴스 촬영 or 블로그 초안 or 상품 기획'},
-      {time:'17:30–21:30',text:'오후 수업',sub:'21:30 마감'},
-    ], memo:'수업 텀에 → 콘텐츠 메모만 짧게' },
-  { day:'화', eng:'Tue', tag:'🧘 수업 + 수련', energy:1, badge:'badge-rose',
+      {time:'06:50–12:00',text:'오전 수업 5개',sub:'06:50 / 09:00 / 10:00 / 11:00 / 12:00'},
+      {time:'13:00–18:00',text:'황금 블록 ⭐⭐',highlight:true,sub:'종합소득세 서류 · MOOMUA 앱 · 사이버대 강의'},
+      {time:'18:30–20:30',text:'오후 수업 3개',sub:'18:30 / 19:30 / 20:30'},
+    ], memo:'오늘 황금 블록 5시간이 이번 주 전부야. 종소득세 먼저!' },
+  { day:'화', eng:'Tue', tag:'💪 가장 빽빽한 날', energy:1, badge:'badge-rose',
+    blocks:[
+      {time:'05:30',text:'기상 · 준비'},
+      {time:'08:00',text:'출근'},
+      {time:'08:30–12:00',text:'오전 수업 4개',sub:'08:30 / 10:00 / 11:00 / 12:00'},
+      {time:'16:00–21:30',text:'오후 수업 6개',sub:'16:00 / 17:30 / 18:30 / 19:30 / 20:30 / 21:30'},
+    ], memo:'오늘 진짜 빡세. 퇴근하면 그냥 쉬어. 진짜로. 🤍' },
+  { day:'수', eng:'Wed', tag:'🧘 요가 + 황금 블록', energy:2, badge:'badge-gold',
     blocks:[
       {time:'05:30',text:'기상 · 준비'},
       {time:'06:30',text:'출근'},
-      {time:'06:50–13:00',text:'수업'},
-      {time:'13:00–16:00',text:'요가 수련',sub:'이게 곧 공부이자 회복'},
-      {time:'16:00–21:30',text:'오후 수업',sub:'21:30 마감'},
-    ], memo:'퇴근 후 → 그냥 쉬어. 진짜로. 🤍' },
-  { day:'수', eng:'Wed', tag:'⭐ 가장 중요한 날', energy:2, badge:'badge-gold',
+      {time:'06:50–12:00',text:'오전 수업',sub:'06:50 / 11:00 / 12:00'},
+      {time:'13:30',text:'🧘 요가',sub:'개인 수업'},
+      {time:'14:30–17:00',text:'황금 블록 ⭐',highlight:true,sub:'사이버대 강의 · 콘텐츠 메모'},
+      {time:'17:30–19:30',text:'오후 수업 3개',sub:'17:30 / 18:30 / 19:30'},
+    ], memo:'요가 끝나고 바로 작업 시작! 짧지만 소중한 블록.' },
+  { day:'목', eng:'Thu', tag:'📸 조카 돌사진의 날', energy:1, badge:'badge-rose',
+    blocks:[
+      {time:'05:30',text:'기상 · 준비'},
+      {time:'06:30',text:'출근'},
+      {time:'06:50–12:00',text:'오전 수업 4개',sub:'06:50 / 09:00 / 10:00 / 12:00'},
+      {time:'14:00',text:'📸 조카 돌사진 스튜디오',sub:'언니랑 함께 🤍'},
+      {time:'17:30–20:30',text:'오후 수업 4개',sub:'17:30 / 18:30 / 19:30 / 20:30'},
+    ], memo:'조카 돌사진 🥰 언니랑의 시간도 소중한 회복이야.' },
+  { day:'금', eng:'Fri', tag:'🧵 동대문 마감의 날', energy:3, badge:'badge-sage',
     blocks:[
       {time:'05:30',text:'기상 · 준비'},
       {time:'07:00',text:'출근'},
-      {time:'07:30–13:00',text:'수업'},
-      {time:'14:00–17:30',text:'깊은 작업 블록 ⭐⭐',highlight:true,sub:'예약 포스팅 세팅까지'},
-      {time:'17:30–21:30',text:'오후 수업',sub:'21:30 마감'},
-    ], memo:'이 3–4시간이 주중 가장 길고 안정적인 블록!' },
-  { day:'목', eng:'Thu', tag:'🫀 화요일처럼', energy:1, badge:'badge-rose',
-    blocks:[
-      {time:'05:30',text:'기상 · 준비'},
-      {time:'06:30',text:'출근'},
-      {time:'06:50–13:00',text:'수업'},
-      {time:'13:00–17:30',text:'회복 · 낮잠 OK',sub:'피곤하면 진짜 자도 돼'},
-      {time:'17:30–21:30',text:'오후 수업',sub:'21:30 마감'},
-    ], memo:'수업 텀에 → 콘텐츠 메모만 짧게' },
-  { day:'금', eng:'Fri', tag:'🌤️ 가벼운 마무리', energy:3, badge:'badge-sage',
-    blocks:[
-      {time:'05:30',text:'기상 · 준비'},
-      {time:'07:00',text:'출근, 오전 수업'},
-      {time:'낮',text:'자유 · 볼일',sub:'억지로 작업 X'},
-      {time:'17:00–21:00',text:'오후 수업'},
-    ], memo:'퇴근 후 → 주말 준비, 일찍 취침 🚌' },
+      {time:'07:30–12:00',text:'오전 수업 4개',sub:'07:30 / 09:00 / 10:00 / 12:00'},
+      {time:'13:00',text:'점심 · 이동 준비',sub:'여유 있게'},
+      {time:'17:00–19:00',text:'오후 수업 3개',sub:'17:00 / 18:00 / 19:00'},
+      {time:'20:30',text:'🧵 동대문 원단시장',highlight:true,sub:'온열팩 원단 확인'},
+    ], memo:'수업 끝나고 바로 동대문! 원단 보고 집 가면 돼. 🤍' },
   { day:'토', eng:'Sat', tag:'🌊 완전 OFF · 속초', energy:3, badge:'badge-sage',
     blocks:[
       {time:'04:50',text:'기상'},
@@ -1105,7 +1145,7 @@ const WEEK_ROUTINES = [
       {time:'낮',text:'외식 · 카페 · 바다'},
       {time:'19:50',text:'인천 출발 🚗'},
     ], memo:'' },
-];
+]
 
 function renderWeekRoutineCards() {
   const container = document.getElementById('weekRoutineCards');
