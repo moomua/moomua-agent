@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>MOOMUA · 듀듀의 하루</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MOOMUA">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0F0C09">
+<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCIgcng9IjQwIiBmaWxsPSIjMEYwQzA5Ii8+PHRleHQgeD0iOTAiIHk9IjExMCIgZm9udC1mYW1pbHk9InNlcmlmIiBmb250LXNpemU9IjgwIiBmaWxsPSIjQzlBOTZFIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7nm4g8L3RleHQ+PC9zdmc+">
+<script>
+const manifestData={name:"MOOMUA · 듀듀의 하루",short_name:"MOOMUA",display:"standalone",background_color:"#0F0C09",theme_color:"#0F0C09",orientation:"portrait",start_url:".",icons:[{src:"data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCIgcng9IjQwIiBmaWxsPSIjMEYwQzA5Ii8+PHRleHQgeD0iOTAiIHk9IjExMCIgZm9udC1mYW1pbHk9InNlcmlmIiBmb250LXNpemU9IjgwIiBmaWxsPSIjQzlBOTZFIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7nm4g8L3RleHQ+PC9zdmc+",sizes:"180x180",type:"image/svg+xml"}]};
+const blob=new Blob([JSON.stringify(manifestData)],{type:'application/json'});
+const mURL=URL.createObjectURL(blob);
+document.addEventListener('DOMContentLoaded',()=>{const l=document.createElement('link');l.rel='manifest';l.href=mURL;document.head.appendChild(l);});
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600&family=Cormorant+Garamond:wght@300;400;600&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0F0C09;
+  --surface: #1A1610;
+  --surface2: #231E18;
+  --surface3: #2E2720;
+  --border: #3A3028;
+  --gold: #C9A96E;
+  --gold-dim: #8B7040;
+  --gold-bright: #E8C88A;
+  --cream: #F0E8D8;
+  --muted: #7A6E62;
+  --sage: #7A9E7E;
+  --rose: #C4907A;
+  --text: #E8DFD0;
+  --text-dim: #9A8E82;
+}
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+body {
+  background:var(--bg);
+  font-family:'Noto Sans KR',sans-serif;
+  color:var(--text);
+  min-height:100vh;
+  max-width:430px;
+  margin:0 auto;
+  padding-bottom:90px;
+}
+.app-header {
+  padding:52px 24px 20px;
+  background:linear-gradient(180deg,#1A1610 0%,transparent 100%);
+  position:sticky;
+  top:0;
+  z-index:100;
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+}
+.brand { font-family:'Cormorant Garamond',serif; font-size:11px; letter-spacing:4px; color:var(--gold); text-transform:uppercase; }
+.greeting { font-family:'Noto Serif KR',serif; font-size:22px; font-weight:300; color:var(--cream); line-height:1.3; }
+.greeting em { font-style:normal; color:var(--gold); font-weight:400; }
+.today-date { font-size:12px; color:var(--muted); font-weight:300; margin-top:4px; }
+.section { padding:0 20px; margin-bottom:24px; animation:fadeIn 0.4s ease forwards; }
+.section-title { font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--gold-dim); margin-bottom:14px; font-weight:500; }
+.week-strip { display:grid; grid-template-columns:repeat(7,1fr); gap:6px; }
+.week-day { display:flex; flex-direction:column; align-items:center; gap:6px; cursor:pointer; }
+.week-label { font-size:10px; color:var(--muted); font-weight:400; letter-spacing:0.5px; }
+.week-num { width:34px; height:34px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:400; color:var(--text-dim); background:var(--surface); border:1px solid transparent; font-family:'Cormorant Garamond',serif; }
+.week-day.today .week-num { background:var(--gold); color:var(--bg); font-weight:600; border-color:var(--gold); }
+.week-dot { width:4px; height:4px; border-radius:50%; background:transparent; }
+.week-day.has-class .week-dot { background:var(--gold-dim); }
+.week-day.today .week-dot { background:var(--gold); }
+.schedule-list { display:flex; flex-direction:column; gap:8px; }
+.schedule-item { display:flex; align-items:center; gap:12px; background:var(--surface); border-radius:12px; padding:12px 14px; border:1px solid var(--border); }
+.schedule-time { font-family:'Cormorant Garamond',serif; font-size:13px; color:var(--muted); min-width:52px; flex-shrink:0; }
+.schedule-bar { width:2px; height:32px; border-radius:2px; flex-shrink:0; }
+.bar-class { background:var(--gold); }
+.bar-study { background:var(--sage); }
+.bar-free { background:var(--rose); }
+.bar-rest { background:var(--border); }
+.schedule-info {}
+.schedule-name { font-size:13px; font-weight:400; color:var(--text); margin-bottom:2px; }
+.schedule-sub { font-size:11px; color:var(--muted); font-weight:300; }
+.schedule-item.current { border-color:var(--gold-dim); background:var(--surface2); }
+.current-badge { margin-left:auto; background:var(--gold); color:var(--bg); font-size:9px; padding:2px 7px; border-radius:20px; font-weight:500; letter-spacing:0.5px; flex-shrink:0; }
+.todo-list { display:flex; flex-direction:column; gap:8px; }
+.todo-item { display:flex; align-items:center; gap:12px; padding:13px 14px; background:var(--surface); border-radius:12px; border:1px solid var(--border); cursor:pointer; }
+.todo-item.done { opacity:0.45; }
+.todo-check { width:20px; height:20px; border-radius:6px; border:1.5px solid var(--border); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.todo-item.done .todo-check { background:var(--gold); border-color:var(--gold); }
+.checkmark { display:none; color:var(--bg); font-size:11px; font-weight:700; }
+.todo-item.done .checkmark { display:block; }
+.todo-text { font-size:13px; color:var(--text); font-weight:300; flex:1; }
+.todo-item.done .todo-text { text-decoration:line-through; color:var(--muted); }
+.todo-tag { font-size:10px; padding:2px 8px; border-radius:20px; font-weight:400; flex-shrink:0; }
+.tag-class { background:rgba(201,169,110,0.15); color:var(--gold); }
+.tag-brand { background:rgba(196,144,122,0.15); color:var(--rose); }
+.tag-study { background:rgba(122,158,126,0.15); color:var(--sage); }
+.tag-health { background:rgba(122,158,126,0.12); color:var(--sage); }
+.add-todo { display:flex; align-items:center; gap:10px; padding:12px 14px; background:transparent; border:1.5px dashed var(--border); border-radius:12px; cursor:pointer; width:100%; text-align:left; }
+.add-todo-text { font-size:13px; color:var(--muted); font-weight:300; }
+.add-icon { width:20px; height:20px; border-radius:6px; border:1.5px solid var(--border); display:flex; align-items:center; justify-content:center; color:var(--muted); font-size:14px; flex-shrink:0; }
+.routine-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.routine-item { background:var(--surface); border-radius:14px; padding:14px; border:1px solid var(--border); cursor:pointer; position:relative; overflow:hidden; }
+.routine-item.done { border-color:var(--gold-dim); background:var(--surface2); }
+.routine-item.done::after { content:'✓'; position:absolute; top:10px; right:12px; color:var(--gold); font-size:12px; font-weight:700; }
+.routine-icon { font-size:20px; margin-bottom:8px; }
+.routine-name { font-size:12px; color:var(--text); font-weight:400; margin-bottom:2px; }
+.routine-time { font-size:10px; color:var(--muted); font-weight:300; }
+.study-cards { display:flex; flex-direction:column; gap:8px; }
+.study-card { background:var(--surface); border-radius:14px; padding:16px; border:1px solid var(--border); }
+.study-top { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px; }
+.study-name { font-size:13px; font-weight:400; color:var(--text); margin-bottom:3px; }
+.study-sub { font-size:11px; color:var(--muted); font-weight:300; }
+.study-count { font-family:'Cormorant Garamond',serif; font-size:22px; color:var(--gold); line-height:1; }
+.study-count span { font-size:11px; color:var(--muted); font-family:'Noto Sans KR',sans-serif; }
+.progress-bar { height:4px; background:var(--border); border-radius:4px; overflow:hidden; margin-bottom:10px; }
+.progress-fill { height:100%; background:linear-gradient(90deg,var(--gold-dim),var(--gold)); border-radius:4px; }
+.progress-fill.sage { background:linear-gradient(90deg,#5A8A5E,var(--sage)); }
+.study-sessions { display:flex; gap:6px; flex-wrap:wrap; }
+.session-dot { width:28px; height:28px; border-radius:8px; background:var(--border); display:flex; align-items:center; justify-content:center; font-size:9px; color:var(--muted); cursor:pointer; font-weight:400; }
+.session-dot.done { background:var(--gold-dim); color:var(--bg); }
+.session-dot.done.sage-done { background:var(--sage); }
+.health-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:8px; }
+.health-card { background:var(--surface); border-radius:14px; padding:14px; border:1px solid var(--border); }
+.health-label { font-size:10px; color:var(--muted); font-weight:300; margin-bottom:6px; letter-spacing:0.5px; }
+.health-value { font-family:'Cormorant Garamond',serif; font-size:26px; color:var(--cream); line-height:1; margin-bottom:2px; }
+.health-unit { font-size:11px; color:var(--muted); font-family:'Noto Sans KR',sans-serif; }
+.health-note { font-size:11px; color:var(--text-dim); margin-top:4px; font-weight:300; }
+.health-input { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:14px; display:flex; align-items:center; gap:10px; }
+.health-input-label { font-size:12px; color:var(--muted); font-weight:300; flex:1; }
+.mood-btns { display:flex; gap:6px; }
+.mood-btn { width:32px; height:32px; border-radius:8px; background:var(--surface2); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:16px; cursor:pointer; }
+.mood-btn.selected { background:var(--surface3); border-color:var(--gold-dim); transform:scale(1.1); }
+.bottom-nav { position:fixed; bottom:0; left:50%; transform:translateX(-50%); width:100%; max-width:430px; background:var(--surface); border-top:1px solid var(--border); padding:12px 0 28px; display:flex; justify-content:space-around; z-index:200; backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); }
+.nav-item { display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer; padding:4px 16px; }
+.nav-icon { font-size:20px; opacity:0.5; }
+.nav-label { font-size:9px; color:var(--muted); letter-spacing:0.5px; }
+.nav-item.active .nav-icon { opacity:1; }
+.nav-item.active .nav-label { color:var(--gold); }
+.modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:300; align-items:flex-end; }
+.modal-overlay.show { display:flex; }
+.modal-sheet { background:var(--surface2); border-radius:20px 20px 0 0; padding:20px 20px 40px; width:100%; animation:slideUp 0.3s ease; }
+.modal-handle { width:36px; height:4px; background:var(--border); border-radius:4px; margin:0 auto 20px; }
+.modal-title { font-family:'Noto Serif KR',serif; font-size:16px; font-weight:400; color:var(--cream); margin-bottom:16px; }
+.modal-input { width:100%; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:13px 14px; font-size:14px; color:var(--text); font-family:'Noto Sans KR',sans-serif; font-weight:300; outline:none; margin-bottom:12px; }
+.modal-input:focus { border-color:var(--gold-dim); }
+.modal-input::placeholder { color:var(--muted); }
+.modal-tags { display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap; }
+.modal-tag { padding:5px 12px; border-radius:20px; font-size:11px; cursor:pointer; border:1px solid var(--border); color:var(--muted); }
+.modal-tag.sel-class { background:rgba(201,169,110,0.2); border-color:var(--gold-dim); color:var(--gold); }
+.modal-tag.sel-brand { background:rgba(196,144,122,0.2); border-color:var(--rose); color:var(--rose); }
+.modal-tag.sel-study { background:rgba(122,158,126,0.2); border-color:var(--sage); color:var(--sage); }
+.modal-tag.sel-health { background:rgba(122,158,126,0.15); border-color:var(--sage); color:var(--sage); }
+.modal-btn { width:100%; background:var(--gold); color:var(--bg); border:none; border-radius:12px; padding:14px; font-size:14px; font-weight:500; font-family:'Noto Sans KR',sans-serif; cursor:pointer; }
+.page { display:none; }
+.page.active { display:block; }
+.divider-line { height:1px; background:var(--border); margin:0 20px 24px; opacity:0.5; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+@keyframes slideUp { from{transform:translateY(100%)} to{transform:translateY(0)} }
+@keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+</style>
+</head>
+<body>
+
+<!-- 홈화면 추가 안내 -->
+<div id="installBanner" style="display:none;position:fixed;bottom:90px;left:50%;transform:translateX(-50%);width:calc(100% - 40px);max-width:390px;background:var(--surface2);border:1px solid var(--gold-dim);border-radius:16px;padding:14px 16px;z-index:500;animation:fadeIn 0.4s ease;">
+  <div style="display:flex;align-items:center;gap:12px;">
+    <div style="font-size:22px;">📲</div>
+    <div style="flex:1;">
+      <div style="font-size:13px;color:var(--cream);font-weight:500;margin-bottom:2px;">홈화면에 추가하기</div>
+      <div style="font-size:11px;color:var(--muted);font-weight:300;line-height:1.5;">Safari에서 공유 버튼 → <br>"홈 화면에 추가" 누르면 앱처럼 써!</div>
+    </div>
+    <div onclick="document.getElementById('installBanner').style.display='none'" style="color:var(--muted);font-size:18px;cursor:pointer;padding:4px;">✕</div>
+  </div>
+</div>
+
+<div class="app-header">
+  <div class="brand">MOOMUA · 비서</div>
+  <div class="greeting">안녕, <em>듀듀</em> 🤍</div>
+  <div class="today-date" id="todayDate"></div>
+</div>
+
+<div class="page active" id="page-home">
+  <div class="section">
+    <div class="section-title">이번 주</div>
+    <div class="week-strip" id="weekStrip"></div>
+  </div>
+  <div class="divider-line"></div>
+  <div class="section">
+    <div class="section-title">오늘 일정</div>
+    <div class="schedule-list" id="scheduleList"></div>
+  </div>
+  <div class="divider-line"></div>
+  <div class="section">
+    <div class="section-title">오늘 할 일</div>
+    <div class="todo-list" id="todoList"></div>
+    <div style="margin-top:8px;">
+      <button class="add-todo" onclick="openModal()">
+        <div class="add-icon">+</div>
+        <div class="add-todo-text">할 일 추가하기</div>
+      </button>
+    </div>
+  </div>
+  <div class="divider-line"></div>
+  <div class="section">
+    <div class="section-title">오늘 루틴</div>
+    <div class="routine-grid" id="routineGrid"></div>
+  </div>
+</div>
+
+<div class="page" id="page-study">
+  <div style="padding:24px 20px 16px;">
+    <div class="section-title">공부 기록 · 진도</div>
+  </div>
+  <div class="section">
+    <div class="study-cards" id="studyCards"></div>
+  </div>
+</div>
+
+<div class="page" id="page-health">
+  <div style="padding:24px 20px 12px;">
+    <div class="section-title">건강 관리</div>
+    <!-- 서브탭 -->
+    <div style="display:flex;gap:6px;margin-bottom:4px;">
+      <div onclick="switchHtab('checkin',this)" class="htab htab-active" style="flex:1;text-align:center;padding:8px 4px;border-radius:10px;background:var(--gold);color:var(--bg);font-size:11px;font-weight:500;cursor:pointer;">오늘 체크인</div>
+      <div onclick="switchHtab('symptom',this)" class="htab" style="flex:1;text-align:center;padding:8px 4px;border-radius:10px;background:var(--surface);color:var(--muted);font-size:11px;cursor:pointer;border:1px solid var(--border);">증상 기록</div>
+      <div onclick="switchHtab('diet',this)" class="htab" style="flex:1;text-align:center;padding:8px 4px;border-radius:10px;background:var(--surface);color:var(--muted);font-size:11px;cursor:pointer;border:1px solid var(--border);">식단 피드백</div>
+      <div onclick="switchHtab('hlog',this)" class="htab" style="flex:1;text-align:center;padding:8px 4px;border-radius:10px;background:var(--surface);color:var(--muted);font-size:11px;cursor:pointer;border:1px solid var(--border);">기록 보기</div>
+    </div>
+  </div>
+
+  <!-- 오늘 체크인 -->
+  <div id="htab-checkin" class="section">
+    <!-- 체중 + 수면 -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
+      <div class="health-card" style="cursor:pointer;" onclick="logWeight()">
+        <div class="health-label">체중</div>
+        <div class="health-value" id="weightVal">—</div>
+        <div class="health-unit">kg</div>
+        <div class="health-note" id="weightNote">탭해서 입력</div>
+      </div>
+      <div class="health-card" style="cursor:pointer;" onclick="logSleep()">
+        <div class="health-label">수면</div>
+        <div class="health-value" id="sleepVal">—</div>
+        <div class="health-unit">시간</div>
+        <div class="health-note" id="sleepNote">탭해서 입력</div>
+      </div>
+    </div>
+    <!-- 물 + 피로도 -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
+      <div class="health-card" style="cursor:pointer;" onclick="addWater()">
+        <div class="health-label">수분 💧</div>
+        <div class="health-value" id="waterVal">0</div>
+        <div class="health-unit">잔 / 8잔 목표</div>
+        <div style="margin-top:8px;height:4px;background:var(--border);border-radius:4px;overflow:hidden;">
+          <div id="waterBar" style="height:100%;background:linear-gradient(90deg,var(--sage),#A8D5AC);border-radius:4px;width:0%;transition:width 0.3s;"></div>
+        </div>
+      </div>
+      <div class="health-card">
+        <div class="health-label">피로도</div>
+        <div style="display:flex;gap:4px;margin-top:6px;flex-wrap:wrap;">
+          <div onclick="setFatigue(this,1)" class="fatigue-btn" style="flex:1;text-align:center;padding:5px 2px;border-radius:8px;background:var(--surface2);border:1px solid var(--border);font-size:11px;color:var(--muted);cursor:pointer;">😊<br><span style="font-size:9px;">괜찮</span></div>
+          <div onclick="setFatigue(this,2)" class="fatigue-btn" style="flex:1;text-align:center;padding:5px 2px;border-radius:8px;background:var(--surface2);border:1px solid var(--border);font-size:11px;color:var(--muted);cursor:pointer;">😐<br><span style="font-size:9px;">보통</span></div>
+          <div onclick="setFatigue(this,3)" class="fatigue-btn" style="flex:1;text-align:center;padding:5px 2px;border-radius:8px;background:var(--surface2);border:1px solid var(--border);font-size:11px;color:var(--muted);cursor:pointer;">😔<br><span style="font-size:9px;">피곤</span></div>
+          <div onclick="setFatigue(this,4)" class="fatigue-btn" style="flex:1;text-align:center;padding:5px 2px;border-radius:8px;background:var(--surface2);border:1px solid var(--border);font-size:11px;color:var(--muted);cursor:pointer;">🥵<br><span style="font-size:9px;">방전</span></div>
+        </div>
+      </div>
+    </div>
+    <!-- 컨디션 메모 -->
+    <div class="health-card">
+      <div class="health-label">오늘 한마디</div>
+      <textarea id="healthMemo" style="background:transparent;border:none;outline:none;width:100%;color:var(--text);font-family:'Noto Sans KR',sans-serif;font-size:13px;font-weight:300;resize:none;margin-top:6px;line-height:1.7;" rows="2" placeholder="오늘 몸 상태 한마디..."></textarea>
+    </div>
+    <button onclick="saveCheckin()" style="width:100%;background:var(--gold);color:var(--bg);border:none;border-radius:12px;padding:13px;font-size:13px;font-weight:500;font-family:'Noto Sans KR',sans-serif;cursor:pointer;margin-top:8px;">오늘 기록 저장</button>
+  </div>
+
+  <!-- 증상 기록 -->
+  <div id="htab-symptom" class="section" style="display:none;">
+    <div style="background:var(--surface);border-radius:14px;padding:16px;border:1px solid var(--border);margin-bottom:10px;">
+      <div class="health-label" style="margin-bottom:12px;">자율신경계 증상 — 해당되는 거 탭해줘</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;" id="symptomGrid">
+        <div onclick="toggleSymptom(this,'코 통증')" class="sym-btn" data-sym="코 통증" style="padding:10px 12px;border-radius:10px;background:var(--surface2);border:1px solid var(--border);font-size:12px;color:var(--muted);cursor:pointer;text-align:center;">🤧 코 통증</div>
+        <div onclick="toggleSymptom(this,'두통')" class="sym-btn" data-sym="두통" style="padding:10px 12px;border-radius:10px;background:var(--surface2);border:1px solid var(--border);font-size:12px;color:var(--muted);cursor:pointer;text-align:center;">🤕 두통</div>
+        <div onclick="toggleSymptom(this,'어지러움')" class="sym-btn" data-sym="어지러움" style="padding:10px 12px;border-radius:10px;background:var(--surface2);border:1px solid var(--border);font-size:12px;color:var(--muted);cursor:pointer;text-align:center;">💫 어지러움</div>
+        <div onclick="toggleSymptom(this,'구토감')" class="sym-btn" data-sym="구토감" style="padding:10px 12px;border-radius:10px;background:var(--surface2);border:1px solid var(--border);font-size:12px;color:var(--muted);cursor:pointer;text-align:center;">🤢 구토감</div>
+        <div onclick="toggleSymptom(this,'오한')" class="sym-btn" data-sym="오한" style="padding:10px 12px;border-radius:10px;background:var(--surface2);border:1px solid var(--border);font-size:12px;color:var(--muted);cursor:pointer;text-align:center;">🥶 오한</div>
+        <div onclick="toggleSymptom(this,'뒷목 뻐근')" class="sym-btn" data-sym="뒷목 뻐근" style="padding:10px 12px;border-radius:10px;background:var(--surface2);border:1px solid var(--border);font-size:12px;color:var(--muted);cursor:pointer;text-align:center;">😣 뒷목 뻐근</div>
+        <div onclick="toggleSymptom(this,'등 묵직함')" class="sym-btn" data-sym="등 묵직함" style="padding:10px 12px;border-radius:10px;background:var(--surface2);border:1px solid var(--border);font-size:12px;color:var(--muted);cursor:pointer;text-align:center;">🏋️ 등 묵직함</div>
+        <div onclick="toggleSymptom(this,'무기력')" class="sym-btn" data-sym="무기력" style="padding:10px 12px;border-radius:10px;background:var(--surface2);border:1px solid var(--border);font-size:12px;color:var(--muted);cursor:pointer;text-align:center;">🪫 무기력</div>
+      </div>
+    </div>
+    <!-- 강도 -->
+    <div class="health-card" style="margin-bottom:10px;">
+      <div class="health-label">증상 강도</div>
+      <div style="display:flex;gap:6px;margin-top:8px;">
+        <div onclick="setSeverity(this,1)" class="sev-btn" style="flex:1;text-align:center;padding:8px;border-radius:8px;background:var(--surface2);border:1px solid var(--border);font-size:11px;color:var(--muted);cursor:pointer;">약함</div>
+        <div onclick="setSeverity(this,2)" class="sev-btn" style="flex:1;text-align:center;padding:8px;border-radius:8px;background:var(--surface2);border:1px solid var(--border);font-size:11px;color:var(--muted);cursor:pointer;">중간</div>
+        <div onclick="setSeverity(this,3)" class="sev-btn" style="flex:1;text-align:center;padding:8px;border-radius:8px;background:var(--surface2);border:1px solid var(--border);font-size:11px;color:var(--muted);cursor:pointer;">심함</div>
+      </div>
+    </div>
+    <div class="health-card" style="margin-bottom:10px;">
+      <div class="health-label">추가 메모</div>
+      <textarea id="symptomMemo" style="background:transparent;border:none;outline:none;width:100%;color:var(--text);font-family:'Noto Sans KR',sans-serif;font-size:13px;font-weight:300;resize:none;margin-top:6px;line-height:1.7;" rows="2" placeholder="언제부터, 어떤 상황에서 생겼는지..."></textarea>
+    </div>
+    <button onclick="saveSymptom()" style="width:100%;background:var(--rose);color:white;border:none;border-radius:12px;padding:13px;font-size:13px;font-weight:500;font-family:'Noto Sans KR',sans-serif;cursor:pointer;">지금 증상 기록</button>
+  </div>
+
+  <!-- 식단 피드백 -->
+  <div id="htab-diet" class="section" style="display:none;">
+    <div style="background:var(--surface);border-radius:16px;padding:18px;border:1px solid var(--border);margin-bottom:10px;">
+      <div style="font-family:'Noto Serif KR',serif;font-size:14px;color:var(--cream);margin-bottom:6px;">오늘 뭐 먹었어? 🥗</div>
+      <div style="font-size:12px;color:var(--muted);font-weight:300;line-height:1.7;margin-bottom:12px;">아침·점심·저녁·간식 편하게 적어줘.<br>자율신경계 + 다이어트 관점에서 피드백 줄게!</div>
+      <textarea id="dietInput" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:13px 14px;font-size:13px;color:var(--text);font-family:'Noto Sans KR',sans-serif;font-weight:300;resize:none;outline:none;line-height:1.8;" rows="5" placeholder="예) 아침: 안 먹음&#10;점심: 김밥 한 줄&#10;저녁: 삼겹살에 소주 한 잔&#10;간식: 아아 두 잔"></textarea>
+      <button onclick="getDietFeedback()" style="width:100%;background:var(--sage);color:white;border:none;border-radius:12px;padding:13px;font-size:13px;font-weight:500;font-family:'Noto Sans KR',sans-serif;cursor:pointer;margin-top:10px;">피드백 받기 ✨</button>
+    </div>
+    <div id="dietLoading" style="display:none;text-align:center;padding:32px 0;">
+      <div style="font-size:24px;margin-bottom:10px;animation:spin 1.5s linear infinite;">🍽️</div>
+      <div style="font-size:13px;color:var(--muted);font-weight:300;">식단 분석 중...</div>
+    </div>
+    <div id="dietResult" style="display:none;">
+      <div class="health-card">
+        <div class="health-label" style="margin-bottom:10px;">Claude 피드백</div>
+        <div id="dietFeedbackText" style="font-size:13px;color:var(--text);font-weight:300;line-height:1.9;white-space:pre-wrap;"></div>
+      </div>
+      <button onclick="resetDiet()" style="width:100%;background:transparent;border:1.5px dashed var(--border);color:var(--muted);border-radius:12px;padding:12px;font-size:12px;font-family:'Noto Sans KR',sans-serif;cursor:pointer;margin-top:8px;">다시 입력</button>
+    </div>
+  </div>
+
+  <!-- 기록 보기 -->
+  <div id="htab-hlog" class="section" style="display:none;">
+    <div id="hlogList" style="display:flex;flex-direction:column;gap:10px;"></div>
+    <div id="hlogEmpty" style="text-align:center;padding:40px 0;color:var(--muted);font-size:13px;font-weight:300;">아직 기록이 없어.<br>체크인하고 증상 기록해봐 🤍</div>
+  </div>
+</div>
+
+<div class="bottom-nav">
+  <div class="nav-item active" onclick="switchPage('home',this)">
+    <div class="nav-icon">🏠</div>
+    <div class="nav-label">홈</div>
+  </div>
+  <div class="nav-item" onclick="switchPage('plan',this)">
+    <div class="nav-icon">📅</div>
+    <div class="nav-label">일과표</div>
+  </div>
+  <div class="nav-item" onclick="switchPage('routine',this)">
+    <div class="nav-icon">📋</div>
+    <div class="nav-label">주간루틴</div>
+  </div>
+  <div class="nav-item" onclick="switchPage('study',this)">
+    <div class="nav-icon">📚</div>
+    <div class="nav-label">공부</div>
+  </div>
+  <div class="nav-item" onclick="switchPage('health',this)">
+    <div class="nav-icon">🌿</div>
+    <div class="nav-label">건강</div>
+  </div>
+</div>
+
+<!-- PAGE: ROUTINE -->
+<div class="page" id="page-routine">
+  <div style="padding:24px 20px 16px;">
+    <div class="section-title">주간 루틴 설계</div>
+  </div>
+  <div class="section">
+
+    <!-- 핵심 원칙 -->
+    <div style="margin-bottom:14px;">
+      <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-dim);margin-bottom:12px;font-weight:500;">핵심 원칙</div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div style="background:var(--surface);border-radius:14px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start;">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--gold);line-height:1;flex-shrink:0;">1</div>
+          <div style="font-size:12px;color:var(--text-dim);line-height:1.7;font-weight:300;"><span style="color:var(--text);font-weight:400;">매일 05:30 기상 · 06:30 출근 고정</span><br>수업 시간 상관없이. 몸이 리듬을 기억하게.</div>
+        </div>
+        <div style="background:var(--surface);border-radius:14px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start;">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--gold);line-height:1;flex-shrink:0;">2</div>
+          <div style="font-size:12px;color:var(--text-dim);line-height:1.7;font-weight:300;"><span style="color:var(--text);font-weight:400;">신규 21:30 이후 수업 안 받기</span><br>기존 수업은 유지. 새로운 건 NO.</div>
+        </div>
+        <div style="background:var(--surface);border-radius:14px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start;">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--gold);line-height:1;flex-shrink:0;">3</div>
+          <div style="font-size:12px;color:var(--text-dim);line-height:1.7;font-weight:300;"><span style="color:var(--text);font-weight:400;">월·수 황금 블록만 지켜도 달라져</span><br>화·목은 수업 잘 하고 쉬는 게 맞아.</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="height:1px;background:var(--border);opacity:0.5;margin-bottom:20px;"></div>
+
+    <!-- 요일별 카드 -->
+    <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-dim);margin-bottom:12px;font-weight:500;">요일별 루틴</div>
+    <div style="display:flex;flex-direction:column;gap:10px;" id="weekRoutineCards"></div>
+
+    <div style="height:1px;background:var(--border);opacity:0.5;margin:20px 0;"></div>
+
+    <!-- 한 달 목표 -->
+    <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-dim);margin-bottom:12px;font-weight:500;">한 달이면 이게 쌓여</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+      <div style="background:var(--surface);border-radius:14px;padding:14px;text-align:center;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--gold);line-height:1;margin-bottom:4px;">12–16</div>
+        <div style="font-size:10px;color:var(--muted);margin-bottom:4px;">개</div>
+        <div style="font-size:11px;color:var(--text-dim);font-weight:300;">인스타 릴스·피드</div>
+      </div>
+      <div style="background:var(--surface);border-radius:14px;padding:14px;text-align:center;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--gold);line-height:1;margin-bottom:4px;">4</div>
+        <div style="font-size:10px;color:var(--muted);margin-bottom:4px;">개</div>
+        <div style="font-size:11px;color:var(--text-dim);font-weight:300;">블로그 포스팅</div>
+      </div>
+      <div style="background:var(--surface);border-radius:14px;padding:14px;text-align:center;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--gold);line-height:1;margin-bottom:4px;">1–2</div>
+        <div style="font-size:10px;color:var(--muted);margin-bottom:4px;">회</div>
+        <div style="font-size:11px;color:var(--text-dim);font-weight:300;">원데이 클래스</div>
+      </div>
+      <div style="background:var(--surface);border-radius:14px;padding:14px;text-align:center;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--gold);line-height:1;margin-bottom:4px;">+1</div>
+        <div style="font-size:10px;color:var(--muted);margin-bottom:4px;">스텝</div>
+        <div style="font-size:11px;color:var(--text-dim);font-weight:300;">브랜드 상품 전진</div>
+      </div>
+    </div>
+
+    <div style="margin-top:20px;background:var(--surface);border-radius:14px;padding:16px;border-left:3px solid var(--gold);">
+      <div style="font-family:'Noto Serif KR',serif;font-size:13px;color:var(--cream);line-height:1.8;font-weight:300;">월·수 황금 블록만 지켜도<br>3개월 뒤에 진짜 달라진 게 보일 거야. 🤍</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: PLAN -->
+<div class="page" id="page-plan">
+  <div style="padding:24px 20px 16px;">
+    <div class="section-title">오늘 일과표</div>
+  </div>
+  <div class="section">
+
+    <!-- 입력 상태 -->
+    <div id="planInput">
+      <div style="background:var(--surface);border-radius:16px;padding:18px;border:1px solid var(--border);margin-bottom:12px;">
+        <div style="font-family:'Noto Serif KR',serif;font-size:14px;color:var(--cream);margin-bottom:6px;">오늘 어떤 하루야? 🤍</div>
+        <div style="font-size:12px;color:var(--muted);font-weight:300;line-height:1.7;margin-bottom:14px;">수업 시간, 할 일, 가야 할 곳, 컨디션까지<br>편하게 적어줘. 내가 일과표 짜줄게!</div>
+        <textarea id="planTextarea" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:13px 14px;font-size:13px;color:var(--text);font-family:'Noto Sans KR',sans-serif;font-weight:300;resize:none;outline:none;line-height:1.8;" rows="5" placeholder="예) 오전 9시부터 1시까지 수업이고, 오후에 암재활 강의 들어야 해. 저녁 6시 수업 있고 오늘 좀 피곤해.."></textarea>
+        <button onclick="generatePlan()" id="planBtn" style="width:100%;background:var(--gold);color:var(--bg);border:none;border-radius:12px;padding:14px;font-size:14px;font-weight:500;font-family:'Noto Sans KR',sans-serif;cursor:pointer;margin-top:10px;">일과표 짜줘 ✨</button>
+      </div>
+    </div>
+
+    <!-- 로딩 -->
+    <div id="planLoading" style="display:none;text-align:center;padding:40px 0;">
+      <div style="font-size:28px;margin-bottom:12px;animation:spin 1.5s linear infinite;">⏳</div>
+      <div style="font-size:13px;color:var(--muted);font-weight:300;">듀듀 하루 짜는 중...</div>
+    </div>
+
+    <!-- 결과 -->
+    <div id="planResult" style="display:none;">
+      <div id="planCards" style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px;"></div>
+      <button onclick="resetPlan()" style="width:100%;background:transparent;border:1.5px dashed var(--border);color:var(--muted);border-radius:12px;padding:13px;font-size:13px;font-family:'Noto Sans KR',sans-serif;cursor:pointer;">다시 짜기</button>
+    </div>
+
+  </div>
+</div>
+
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-title">할 일 추가</div>
+    <input class="modal-input" id="todoInput" placeholder="오늘 할 일을 입력해줘..." />
+    <div class="modal-tags">
+      <div class="modal-tag" onclick="selectTag(this,'class')">📋 수업</div>
+      <div class="modal-tag" onclick="selectTag(this,'brand')">✨ 브랜드</div>
+      <div class="modal-tag" onclick="selectTag(this,'study')">📚 공부</div>
+      <div class="modal-tag" onclick="selectTag(this,'health')">🌿 건강</div>
+    </div>
+    <button class="modal-btn" onclick="addTodo()">추가하기</button>
+  </div>
+</div>
+
+<script>
+const DAYS = ['일','월','화','수','목','금','토'];
+const MONTHS = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+const now = new Date();
+
+// 날짜 표시
+document.getElementById('todayDate').textContent =
+  `${now.getFullYear()}년 ${MONTHS[now.getMonth()]} ${now.getDate()}일 ${DAYS[now.getDay()]}요일`;
+
+// STATE
+const todayKey = now.toDateString();
+const lastKey = localStorage.getItem('dudu_day');
+function resetIfNewDay() {
+  if (lastKey !== todayKey) {
+    const r = JSON.parse(localStorage.getItem('dudu_routines') || '[]');
+    r.forEach(x => x.done = false);
+    localStorage.setItem('dudu_routines', JSON.stringify(r));
+    localStorage.setItem('dudu_water','0');
+    localStorage.setItem('dudu_sleep','');
+    localStorage.setItem('dudu_mood','');
+    const t = JSON.parse(localStorage.getItem('dudu_todos') || '[]');
+    localStorage.setItem('dudu_todos', JSON.stringify(t.filter(x => !x.done)));
+    localStorage.setItem('dudu_day', todayKey);
+  }
+}
+resetIfNewDay();
+
+function getRoutines() {
+  const def = [
+    {id:1,icon:'🌅',name:'05:30 기상',time:'매일',done:false},
+    {id:2,icon:'🧘',name:'필라테스 수련',time:'출근 전',done:false},
+    {id:3,icon:'💧',name:'물 8잔',time:'하루 종일',done:false},
+    {id:4,icon:'🌙',name:'21:30 마감',time:'저녁 수업',done:false},
+    {id:5,icon:'📝',name:'콘텐츠 메모',time:'수업 텀에',done:false},
+    {id:6,icon:'📖',name:'강의 듣기',time:'여유 시간',done:false},
+  ];
+  const saved = localStorage.getItem('dudu_routines');
+  return saved ? JSON.parse(saved) : def;
+}
+
+function getStudy() {
+  const def = [
+    {id:1,name:'암재활 필라테스 이론강의',sub:'이번 주부터 시작!',total:12,done:0,color:'gold'},
+    {id:2,name:'요가 수련',sub:'화요일 정기 수련',total:4,done:1,color:'sage'},
+    {id:3,name:'해부학 · DNS · 자율신경계',sub:'자기계발 공부',total:20,done:3,color:'gold'},
+  ];
+  const saved = localStorage.getItem('dudu_study');
+  return saved ? JSON.parse(saved) : def;
+}
+
+// 주간 캘린더
+function renderWeek() {
+  const strip = document.getElementById('weekStrip');
+  strip.innerHTML = '';
+  const dow = now.getDay();
+  const monday = new Date(now);
+  monday.setDate(now.getDate() - (dow === 0 ? 6 : dow - 1));
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(monday);
+    d.setDate(monday.getDate() + i);
+    const isToday = d.toDateString() === now.toDateString();
+    const hasClass = [1,2,3,4,5].includes(i);
+    const el = document.createElement('div');
+    el.className = 'week-day' + (isToday?' today':'') + (hasClass?' has-class':'');
+    el.innerHTML = `<div class="week-label">${DAYS[d.getDay()]}</div><div class="week-num">${d.getDate()}</div><div class="week-dot"></div>`;
+    strip.appendChild(el);
+  }
+}
+
+// 오늘 일정
+const SCHEDULES = {
+  1:[
+    {time:'05:30',name:'기상 · 준비',sub:'씻고 출근 준비',type:'rest'},
+    {time:'06:30',name:'출근',sub:'센터로',type:'rest'},
+    {time:'09:00–13:00',name:'오전 수업',sub:'회원 수업',type:'class'},
+    {time:'13:00–17:00',name:'황금 블록 ⭐',sub:'콘텐츠 · 브랜딩 작업',type:'free'},
+    {time:'17:30–21:30',name:'오후 수업',sub:'21:30 마감',type:'class'},
+  ],
+  2:[
+    {time:'05:30',name:'기상 · 준비',sub:'',type:'rest'},
+    {time:'06:30',name:'출근',sub:'첫 수업 06:50',type:'rest'},
+    {time:'06:50–13:00',name:'오전 수업',sub:'',type:'class'},
+    {time:'13:00–16:00',name:'요가 수련',sub:'이게 곧 공부이자 회복',type:'study'},
+    {time:'16:00–21:30',name:'오후 수업',sub:'21:30 마감',type:'class'},
+  ],
+  3:[
+    {time:'05:30',name:'기상 · 준비',sub:'',type:'rest'},
+    {time:'07:00',name:'출근',sub:'첫 수업 07:30',type:'rest'},
+    {time:'07:30–13:00',name:'오전 수업',sub:'',type:'class'},
+    {time:'14:00–17:30',name:'깊은 작업 블록 ⭐⭐',sub:'예약 포스팅 세팅까지',type:'free'},
+    {time:'17:30–21:30',name:'오후 수업',sub:'21:30 마감',type:'class'},
+  ],
+  4:[
+    {time:'05:30',name:'기상 · 준비',sub:'',type:'rest'},
+    {time:'06:30',name:'출근',sub:'첫 수업 06:50',type:'rest'},
+    {time:'06:50–13:00',name:'오전 수업',sub:'',type:'class'},
+    {time:'13:00–17:30',name:'회복 · 낮잠 OK',sub:'피곤하면 진짜 자도 돼 🤍',type:'rest'},
+    {time:'17:30–21:30',name:'오후 수업',sub:'21:30 마감',type:'class'},
+  ],
+  5:[
+    {time:'05:30',name:'기상 · 준비',sub:'',type:'rest'},
+    {time:'07:00',name:'출근',sub:'첫 수업 07:30',type:'rest'},
+    {time:'07:30–',name:'오전 수업',sub:'',type:'class'},
+    {time:'낮',name:'자유 · 볼일',sub:'억지로 작업 X',type:'free'},
+    {time:'17:00–21:00',name:'오후 수업',sub:'',type:'class'},
+  ],
+  6:[
+    {time:'04:50',name:'기상',sub:'속초행 버스 준비',type:'rest'},
+    {time:'06:30',name:'속초행 버스 🚌',sub:'남편이랑',type:'free'},
+    {time:'오전',name:'브런치 · 카페',sub:'',type:'free'},
+    {time:'오후',name:'테니스 레슨 · 러닝',sub:'',type:'free'},
+    {time:'저녁',name:'해변 산책 🌅',sub:'',type:'rest'},
+  ],
+  0:[
+    {time:'오전',name:'러닝 or 휴식',sub:'전날 컨디션 따라',type:'rest'},
+    {time:'오전 중',name:'주간 정리 1시간 📋',sub:'콘텐츠 반응 · 다음 주 계획',type:'study'},
+    {time:'낮',name:'외식 · 카페 · 바다',sub:'',type:'free'},
+    {time:'19:50',name:'인천 출발 🚗',sub:'11:30 도착',type:'rest'},
+  ],
+};
+
+function renderSchedule() {
+  const list = document.getElementById('scheduleList');
+  list.innerHTML = '';
+  const s = SCHEDULES[now.getDay()] || [];
+  const h = now.getHours();
+  let currentIdx = -1;
+  s.forEach((item, i) => {
+    const hh = parseInt(item.time);
+    if (!isNaN(hh) && hh <= h) currentIdx = i;
+  });
+  s.forEach((item, i) => {
+    const isCurrent = i === currentIdx;
+    const el = document.createElement('div');
+    el.className = 'schedule-item' + (isCurrent ? ' current' : '');
+    el.innerHTML = `
+      <div class="schedule-time">${item.time}</div>
+      <div class="schedule-bar bar-${item.type}"></div>
+      <div class="schedule-info">
+        <div class="schedule-name">${item.name}</div>
+        ${item.sub ? `<div class="schedule-sub">${item.sub}</div>` : ''}
+      </div>
+      ${isCurrent ? '<div class="current-badge">NOW</div>' : ''}
+    `;
+    list.appendChild(el);
+  });
+}
+
+// TODO
+function renderTodos() {
+  const list = document.getElementById('todoList');
+  const todos = JSON.parse(localStorage.getItem('dudu_todos') || '[]');
+  list.innerHTML = '';
+  if (!todos.length) {
+    list.innerHTML = `<div style="text-align:center;padding:20px;color:var(--muted);font-size:13px;font-weight:300;">오늘 할 일을 추가해봐 🤍</div>`;
+    return;
+  }
+  const tagMap = {class:{l:'수업',c:'tag-class'},brand:{l:'브랜드',c:'tag-brand'},study:{l:'공부',c:'tag-study'},health:{l:'건강',c:'tag-health'}};
+  todos.forEach((t, i) => {
+    const tag = tagMap[t.tag];
+    const el = document.createElement('div');
+    el.className = 'todo-item' + (t.done ? ' done' : '');
+    el.innerHTML = `<div class="todo-check"><span class="checkmark">✓</span></div><div class="todo-text">${t.text}</div>${tag?`<div class="todo-tag ${tag.c}">${tag.l}</div>`:''}`;
+    el.onclick = () => {
+      const arr = JSON.parse(localStorage.getItem('dudu_todos') || '[]');
+      arr[i].done = !arr[i].done;
+      localStorage.setItem('dudu_todos', JSON.stringify(arr));
+      renderTodos();
+    };
+    list.appendChild(el);
+  });
+}
+
+let selTag = '';
+function openModal() { document.getElementById('modalOverlay').classList.add('show'); document.getElementById('todoInput').focus(); }
+function closeModal() { document.getElementById('modalOverlay').classList.remove('show'); document.getElementById('todoInput').value=''; selTag=''; document.querySelectorAll('.modal-tag').forEach(t=>t.className='modal-tag'); }
+function closeModalOutside(e) { if(e.target===document.getElementById('modalOverlay')) closeModal(); }
+function selectTag(el, tag) { document.querySelectorAll('.modal-tag').forEach(t=>t.className='modal-tag'); selTag=tag; el.className=`modal-tag sel-${tag}`; }
+function addTodo() {
+  const text = document.getElementById('todoInput').value.trim();
+  if (!text) return;
+  const arr = JSON.parse(localStorage.getItem('dudu_todos') || '[]');
+  arr.push({text, tag:selTag, done:false});
+  localStorage.setItem('dudu_todos', JSON.stringify(arr));
+  renderTodos();
+  closeModal();
+}
+
+// ROUTINE
+function renderRoutines() {
+  const grid = document.getElementById('routineGrid');
+  grid.innerHTML = '';
+  const routines = getRoutines();
+  routines.forEach((r, i) => {
+    const el = document.createElement('div');
+    el.className = 'routine-item' + (r.done ? ' done' : '');
+    el.innerHTML = `<div class="routine-icon">${r.icon}</div><div class="routine-name">${r.name}</div><div class="routine-time">${r.time}</div>`;
+    el.onclick = () => {
+      const arr = getRoutines();
+      arr[i].done = !arr[i].done;
+      localStorage.setItem('dudu_routines', JSON.stringify(arr));
+      renderRoutines();
+    };
+    grid.appendChild(el);
+  });
+}
+
+// STUDY
+function renderStudy() {
+  const cards = document.getElementById('studyCards');
+  cards.innerHTML = '';
+  const study = getStudy();
+  study.forEach((s, si) => {
+    const pct = Math.round((s.done/s.total)*100);
+    const dots = Array.from({length:s.total},(_,i)=>`<div class="session-dot ${i<s.done?(s.color==='sage'?'done sage-done':'done'):''}" onclick="toggleSession(${si},${i})">${i+1}</div>`).join('');
+    const el = document.createElement('div');
+    el.className = 'study-card';
+    el.innerHTML = `
+      <div class="study-top">
+        <div><div class="study-name">${s.name}</div><div class="study-sub">${s.sub}</div></div>
+        <div class="study-count">${s.done}<span>/${s.total}</span></div>
+      </div>
+      <div class="progress-bar"><div class="progress-fill ${s.color==='sage'?'sage':''}" style="width:${pct}%"></div></div>
+      <div class="study-sessions">${dots}</div>
+    `;
+    cards.appendChild(el);
+  });
+}
+
+function toggleSession(si, i) {
+  const arr = getStudy();
+  arr[si].done = i < arr[si].done ? i : i+1;
+  localStorage.setItem('dudu_study', JSON.stringify(arr));
+  renderStudy();
+}
+
+// ── 건강 관리 ──
+let selectedSymptoms = [];
+let selectedSeverity = 0;
+let selectedFatigue = 0;
+
+function switchHtab(tab, el) {
+  ['checkin','symptom','diet','hlog'].forEach(t => {
+    document.getElementById('htab-'+t).style.display = t===tab ? '' : 'none';
+  });
+  document.querySelectorAll('.htab').forEach(b => {
+    b.style.background = 'var(--surface)';
+    b.style.color = 'var(--muted)';
+  });
+  el.style.background = 'var(--gold)';
+  el.style.color = 'var(--bg)';
+  if (tab === 'hlog') renderHlog();
+}
+
+function logWeight() {
+  const v = prompt('오늘 체중? (kg)');
+  if (v && !isNaN(v)) {
+    localStorage.setItem('dudu_weight', v);
+    document.getElementById('weightVal').textContent = v;
+    document.getElementById('weightNote').textContent = '기록 완료 ✓';
+  }
+}
+
+function logSleep() {
+  const h = prompt('몇 시간 잤어? (숫자만)');
+  if (h && !isNaN(h)) {
+    localStorage.setItem('dudu_sleep', h);
+    document.getElementById('sleepVal').textContent = h;
+    document.getElementById('sleepNote').textContent = parseFloat(h) >= 7 ? '잘 잤다 🙂' : '조금 부족해 😴';
+  }
+}
+
+function addWater() {
+  const v = Math.min(parseInt(localStorage.getItem('dudu_water')||'0')+1, 12);
+  localStorage.setItem('dudu_water', v);
+  document.getElementById('waterVal').textContent = v;
+  document.getElementById('waterBar').style.width = Math.min(v/8*100,100)+'%';
+}
+
+function setFatigue(el, val) {
+  document.querySelectorAll('.fatigue-btn').forEach(b => { b.style.background='var(--surface2)'; b.style.borderColor='var(--border)'; b.style.color='var(--muted)'; });
+  el.style.background = 'var(--surface3)';
+  el.style.borderColor = 'var(--gold-dim)';
+  el.style.color = 'var(--gold)';
+  selectedFatigue = val;
+  localStorage.setItem('dudu_fatigue', val);
+}
+
+function saveCheckin() {
+  const date = new Date().toLocaleDateString('ko-KR');
+  const record = {
+    type: 'checkin',
+    date,
+    weight: localStorage.getItem('dudu_weight')||'',
+    sleep: localStorage.getItem('dudu_sleep')||'',
+    water: localStorage.getItem('dudu_water')||'0',
+    fatigue: selectedFatigue,
+    memo: document.getElementById('healthMemo').value,
+    ts: Date.now()
+  };
+  const logs = JSON.parse(localStorage.getItem('dudu_hlogs')||'[]');
+  logs.unshift(record);
+  localStorage.setItem('dudu_hlogs', JSON.stringify(logs.slice(0,60)));
+  alert('저장했어! 🤍');
+}
+
+function toggleSymptom(el, sym) {
+  const idx = selectedSymptoms.indexOf(sym);
+  if (idx > -1) {
+    selectedSymptoms.splice(idx, 1);
+    el.style.background = 'var(--surface2)';
+    el.style.borderColor = 'var(--border)';
+    el.style.color = 'var(--muted)';
+  } else {
+    selectedSymptoms.push(sym);
+    el.style.background = 'rgba(196,144,122,0.2)';
+    el.style.borderColor = 'var(--rose)';
+    el.style.color = 'var(--rose)';
+  }
+}
+
+function setSeverity(el, val) {
+  document.querySelectorAll('.sev-btn').forEach(b => { b.style.background='var(--surface2)'; b.style.borderColor='var(--border)'; b.style.color='var(--muted)'; });
+  el.style.background = val===3 ? 'rgba(196,144,122,0.2)' : 'var(--surface3)';
+  el.style.borderColor = val===3 ? 'var(--rose)' : 'var(--gold-dim)';
+  el.style.color = val===3 ? 'var(--rose)' : 'var(--gold)';
+  selectedSeverity = val;
+}
+
+function saveSymptom() {
+  if (!selectedSymptoms.length) { alert('증상을 선택해줘!'); return; }
+  const date = new Date().toLocaleDateString('ko-KR');
+  const time = new Date().toLocaleTimeString('ko-KR', {hour:'2-digit', minute:'2-digit'});
+  const sevMap = {1:'약함', 2:'중간', 3:'심함'};
+  const record = {
+    type: 'symptom',
+    date, time,
+    symptoms: [...selectedSymptoms],
+    severity: sevMap[selectedSeverity] || '미선택',
+    memo: document.getElementById('symptomMemo').value,
+    ts: Date.now()
+  };
+  const logs = JSON.parse(localStorage.getItem('dudu_hlogs')||'[]');
+  logs.unshift(record);
+  localStorage.setItem('dudu_hlogs', JSON.stringify(logs.slice(0,60)));
+  selectedSymptoms = [];
+  selectedSeverity = 0;
+  document.querySelectorAll('.sym-btn').forEach(b => { b.style.background='var(--surface2)'; b.style.borderColor='var(--border)'; b.style.color='var(--muted)'; });
+  document.querySelectorAll('.sev-btn').forEach(b => { b.style.background='var(--surface2)'; b.style.borderColor='var(--border)'; b.style.color='var(--muted)'; });
+  document.getElementById('symptomMemo').value = '';
+  alert('증상 기록했어 🤍');
+}
+
+async function getDietFeedback() {
+  const input = document.getElementById('dietInput').value.trim();
+  if (!input) return;
+  document.querySelector('#htab-diet .health-card').style.display = 'none';
+  document.getElementById('dietLoading').style.display = 'block';
+  document.getElementById('dietResult').style.display = 'none';
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 800,
+        messages: [{
+          role: 'user',
+          content: `너는 듀듀의 건강 관리 비서야. 듀듀는 필라테스 강사로 체력 소모가 많고, 자율신경계 이상으로 코통증·두통·어지러움·오한·구토감·뒷목뻐근함·무기력 증상이 있어. 다이어트도 신경 쓰고 있어.
+
+오늘 식단:
+${input}
+
+이 식단에 대해 따뜻하고 현실적인 피드백을 해줘. 아래 순서로:
+1. 전체적인 한마디 (칭찬이든 걱정이든 솔직하게)
+2. 자율신경계 관점에서 좋은 점 / 아쉬운 점
+3. 다이어트 관점에서 한마디
+4. 내일은 이거 한 가지만 더 해봐 (실천 가능한 작은 것)
+
+말투는 친한 언니처럼 따뜻하고 편하게. 너무 길지 않게.`
+        }]
+      })
+    });
+    const data = await res.json();
+    const text = data.content[0].text;
+    document.getElementById('dietLoading').style.display = 'none';
+    document.getElementById('dietResult').style.display = 'block';
+    document.getElementById('dietFeedbackText').textContent = text;
+
+    // 기록 저장
+    const logs = JSON.parse(localStorage.getItem('dudu_hlogs')||'[]');
+    logs.unshift({ type:'diet', date: new Date().toLocaleDateString('ko-KR'), input, feedback: text, ts: Date.now() });
+    localStorage.setItem('dudu_hlogs', JSON.stringify(logs.slice(0,60)));
+  } catch(e) {
+    document.getElementById('dietLoading').style.display = 'none';
+    document.querySelector('#htab-diet .health-card').style.display = 'block';
+    alert('오류가 났어 😢 다시 시도해줘!');
+  }
+}
+
+function resetDiet() {
+  document.getElementById('dietResult').style.display = 'none';
+  document.querySelector('#htab-diet .health-card').style.display = 'block';
+  document.getElementById('dietInput').value = '';
+}
+
+function renderHlog() {
+  const logs = JSON.parse(localStorage.getItem('dudu_hlogs')||'[]');
+  const list = document.getElementById('hlogList');
+  const empty = document.getElementById('hlogEmpty');
+  list.innerHTML = '';
+  if (!logs.length) { empty.style.display='block'; return; }
+  empty.style.display = 'none';
+  logs.forEach(log => {
+    const el = document.createElement('div');
+    el.style.cssText = 'background:var(--surface);border-radius:14px;padding:14px;border:1px solid var(--border);';
+    if (log.type === 'checkin') {
+      const fatMap = {1:'😊 괜찮',2:'😐 보통',3:'😔 피곤',4:'🥵 방전'};
+      el.innerHTML = `
+        <div style="display:flex;justify-content:space-between;margin-bottom:10px;">
+          <div style="font-size:12px;color:var(--gold);font-weight:500;">📋 일일 체크인</div>
+          <div style="font-size:11px;color:var(--muted);">${log.date}</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:8px;">
+          <div style="text-align:center;background:var(--surface2);border-radius:8px;padding:8px 4px;">
+            <div style="font-size:10px;color:var(--muted);margin-bottom:2px;">체중</div>
+            <div style="font-size:14px;color:var(--cream);font-family:'Cormorant Garamond',serif;">${log.weight||'—'}</div>
+          </div>
+          <div style="text-align:center;background:var(--surface2);border-radius:8px;padding:8px 4px;">
+            <div style="font-size:10px;color:var(--muted);margin-bottom:2px;">수면</div>
+            <div style="font-size:14px;color:var(--cream);font-family:'Cormorant Garamond',serif;">${log.sleep||'—'}</div>
+          </div>
+          <div style="text-align:center;background:var(--surface2);border-radius:8px;padding:8px 4px;">
+            <div style="font-size:10px;color:var(--muted);margin-bottom:2px;">피로</div>
+            <div style="font-size:11px;color:var(--cream);">${fatMap[log.fatigue]||'—'}</div>
+          </div>
+        </div>
+        ${log.memo ? `<div style="font-size:12px;color:var(--text-dim);font-weight:300;line-height:1.6;">${log.memo}</div>` : ''}
+      `;
+    } else if (log.type === 'symptom') {
+      const sevColor = {약함:'var(--sage)',중간:'var(--gold)',심함:'var(--rose)'};
+      el.innerHTML = `
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+          <div style="font-size:12px;color:var(--rose);font-weight:500;">🚨 증상 기록</div>
+          <div style="font-size:11px;color:var(--muted);">${log.date} ${log.time}</div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px;">
+          ${log.symptoms.map(s=>`<div style="padding:3px 9px;border-radius:20px;background:rgba(196,144,122,0.15);color:var(--rose);font-size:11px;">${s}</div>`).join('')}
+        </div>
+        <div style="font-size:11px;color:${sevColor[log.severity]||'var(--muted)'};margin-bottom:${log.memo?'6px':'0'};">강도: ${log.severity}</div>
+        ${log.memo ? `<div style="font-size:12px;color:var(--text-dim);font-weight:300;">${log.memo}</div>` : ''}
+      `;
+    } else if (log.type === 'diet') {
+      el.innerHTML = `
+        <div style="display:flex;justify-content:space-between;margin-bottom:10px;">
+          <div style="font-size:12px;color:var(--sage);font-weight:500;">🥗 식단 피드백</div>
+          <div style="font-size:11px;color:var(--muted);">${log.date}</div>
+        </div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:8px;font-weight:300;line-height:1.6;border-left:2px solid var(--border);padding-left:10px;">${log.input}</div>
+        <div style="font-size:12px;color:var(--text);font-weight:300;line-height:1.7;">${log.feedback.slice(0,120)}${log.feedback.length>120?'...':''}</div>
+      `;
+    }
+    list.appendChild(el);
+  });
+}
+
+function initHealth() {
+  const w = localStorage.getItem('dudu_water')||'0';
+  const s = localStorage.getItem('dudu_sleep')||'';
+  const wt = localStorage.getItem('dudu_weight')||'';
+  const f = parseInt(localStorage.getItem('dudu_fatigue')||'0');
+  document.getElementById('waterVal').textContent = w;
+  document.getElementById('waterBar').style.width = Math.min(parseInt(w)/8*100,100)+'%';
+  if (s) { document.getElementById('sleepVal').textContent=s; document.getElementById('sleepNote').textContent=parseFloat(s)>=7?'잘 잤다 🙂':'조금 부족해 😴'; }
+  if (wt) { document.getElementById('weightVal').textContent=wt; document.getElementById('weightNote').textContent='기록 완료 ✓'; }
+  if (f) {
+    selectedFatigue = f;
+    const btns = document.querySelectorAll('.fatigue-btn');
+    if (btns[f-1]) { btns[f-1].style.background='var(--surface3)'; btns[f-1].style.borderColor='var(--gold-dim)'; btns[f-1].style.color='var(--gold)'; }
+  }
+  const memo = localStorage.getItem('dudu_healthmemo')||'';
+  const ta = document.getElementById('healthMemo');
+  ta.value = memo;
+  ta.addEventListener('input', e => localStorage.setItem('dudu_healthmemo', e.target.value));
+}
+
+function switchPage(page, navEl) {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('page-'+page).classList.add('active');
+  navEl.classList.add('active');
+}
+
+// ── 일과표 생성 ──
+async function generatePlan() {
+  const input = document.getElementById('planTextarea').value.trim();
+  if (!input) return;
+
+  document.getElementById('planInput').style.display = 'none';
+  document.getElementById('planLoading').style.display = 'block';
+  document.getElementById('planResult').style.display = 'none';
+
+  const today = new Date();
+  const dayNames = ['일','월','화','수','목','금','토'];
+  const todayStr = `${today.getFullYear()}년 ${today.getMonth()+1}월 ${today.getDate()}일 ${dayNames[today.getDay()]}요일`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        messages: [{
+          role: 'user',
+          content: `너는 듀듀의 개인 비서야. 듀듀는 인천에서 필라테스 강사로 일하고 있어. 매일 05:30 기상, 06:30 출근이 기본 루틴이야. 저녁 21:30 이후 신규 수업은 받지 않는 게 원칙이야.
+
+오늘은 ${todayStr}이야.
+
+듀듀가 오늘 일정/할 일을 알려줬어:
+"${input}"
+
+이걸 바탕으로 오늘 하루 일과표를 JSON 배열로만 응답해줘. 다른 텍스트 없이 JSON만.
+
+형식:
+[
+  {"time": "05:30", "title": "기상 · 준비", "sub": "씻고 출근 준비", "type": "rest"},
+  {"time": "09:00–13:00", "title": "오전 수업", "sub": "회원 수업", "type": "class"}
+]
+
+type은 class(수업), study(공부/강의), free(황금블록/브랜딩/콘텐츠), rest(이동/식사/회복) 중 하나.
+시간대 사이 공백도 자연스럽게 채워줘. 황금 블록이 있으면 제목에 ⭐ 붙여줘.
+듀듀가 피곤하다고 하면 회복 시간을 꼭 넣어줘.`
+        }]
+      })
+    });
+
+    const data = await res.json();
+    const raw = data.content[0].text.trim();
+    const clean = raw.replace(/```json|```/g,'').trim();
+    const plan = JSON.parse(clean);
+
+    renderPlan(plan);
+  } catch(e) {
+    document.getElementById('planLoading').style.display = 'none';
+    document.getElementById('planInput').style.display = 'block';
+    alert('앗, 오류가 났어 😢 다시 시도해줘!');
+  }
+}
+
+function renderPlan(plan) {
+  document.getElementById('planLoading').style.display = 'none';
+  document.getElementById('planResult').style.display = 'block';
+
+  const cards = document.getElementById('planCards');
+  cards.innerHTML = '';
+
+  const typeColor = { class:'var(--gold)', study:'var(--sage)', free:'var(--rose)', rest:'var(--border)' };
+
+  plan.forEach((item, i) => {
+    const el = document.createElement('div');
+    el.style.cssText = 'display:flex;align-items:center;gap:12px;background:var(--surface);border-radius:12px;padding:12px 14px;border:1px solid var(--border);animation:fadeIn 0.4s ease forwards;';
+    el.style.animationDelay = `${i * 0.06}s`;
+    el.style.opacity = '0';
+    el.innerHTML = `
+      <div style="font-family:'Cormorant Garamond',serif;font-size:13px;color:var(--muted);min-width:60px;flex-shrink:0;">${item.time}</div>
+      <div style="width:2px;height:32px;border-radius:2px;flex-shrink:0;background:${typeColor[item.type]||'var(--border)'}"></div>
+      <div>
+        <div style="font-size:13px;font-weight:400;color:var(--text);margin-bottom:2px;">${item.title}</div>
+        ${item.sub ? `<div style="font-size:11px;color:var(--muted);font-weight:300;">${item.sub}</div>` : ''}
+      </div>
+    `;
+    cards.appendChild(el);
+  });
+}
+
+function resetPlan() {
+  document.getElementById('planResult').style.display = 'none';
+  document.getElementById('planInput').style.display = 'block';
+  document.getElementById('planTextarea').value = '';
+}
+
+// ── 주간 루틴 카드 ──
+const WEEK_ROUTINES = [
+  { day:'월', eng:'Mon', tag:'✍️ 콘텐츠 제작일', energy:2, badge:'badge-gold',
+    blocks:[
+      {time:'05:30',text:'기상 · 준비'},
+      {time:'06:30',text:'출근'},
+      {time:'09:00–13:00',text:'오전 수업'},
+      {time:'13:00–17:00',text:'황금 블록 ⭐',highlight:true,sub:'릴스 촬영 or 블로그 초안 or 상품 기획'},
+      {time:'17:30–21:30',text:'오후 수업',sub:'21:30 마감'},
+    ], memo:'수업 텀에 → 콘텐츠 메모만 짧게' },
+  { day:'화', eng:'Tue', tag:'🧘 수업 + 수련', energy:1, badge:'badge-rose',
+    blocks:[
+      {time:'05:30',text:'기상 · 준비'},
+      {time:'06:30',text:'출근'},
+      {time:'06:50–13:00',text:'수업'},
+      {time:'13:00–16:00',text:'요가 수련',sub:'이게 곧 공부이자 회복'},
+      {time:'16:00–21:30',text:'오후 수업',sub:'21:30 마감'},
+    ], memo:'퇴근 후 → 그냥 쉬어. 진짜로. 🤍' },
+  { day:'수', eng:'Wed', tag:'⭐ 가장 중요한 날', energy:2, badge:'badge-gold',
+    blocks:[
+      {time:'05:30',text:'기상 · 준비'},
+      {time:'07:00',text:'출근'},
+      {time:'07:30–13:00',text:'수업'},
+      {time:'14:00–17:30',text:'깊은 작업 블록 ⭐⭐',highlight:true,sub:'예약 포스팅 세팅까지'},
+      {time:'17:30–21:30',text:'오후 수업',sub:'21:30 마감'},
+    ], memo:'이 3–4시간이 주중 가장 길고 안정적인 블록!' },
+  { day:'목', eng:'Thu', tag:'🫀 화요일처럼', energy:1, badge:'badge-rose',
+    blocks:[
+      {time:'05:30',text:'기상 · 준비'},
+      {time:'06:30',text:'출근'},
+      {time:'06:50–13:00',text:'수업'},
+      {time:'13:00–17:30',text:'회복 · 낮잠 OK',sub:'피곤하면 진짜 자도 돼'},
+      {time:'17:30–21:30',text:'오후 수업',sub:'21:30 마감'},
+    ], memo:'수업 텀에 → 콘텐츠 메모만 짧게' },
+  { day:'금', eng:'Fri', tag:'🌤️ 가벼운 마무리', energy:3, badge:'badge-sage',
+    blocks:[
+      {time:'05:30',text:'기상 · 준비'},
+      {time:'07:00',text:'출근, 오전 수업'},
+      {time:'낮',text:'자유 · 볼일',sub:'억지로 작업 X'},
+      {time:'17:00–21:00',text:'오후 수업'},
+    ], memo:'퇴근 후 → 주말 준비, 일찍 취침 🚌' },
+  { day:'토', eng:'Sat', tag:'🌊 완전 OFF · 속초', energy:3, badge:'badge-sage',
+    blocks:[
+      {time:'04:50',text:'기상'},
+      {time:'06:30',text:'속초행 버스 🚌'},
+      {time:'오전',text:'브런치 · 카페'},
+      {time:'오후',text:'테니스 · 러닝'},
+      {time:'저녁',text:'해변 산책 🌅'},
+    ], memo:'이날 인스타는 수요일에 예약해둔 것들 🤍' },
+  { day:'일', eng:'Sun', tag:'🗒️ 딱 1시간만', energy:2, badge:'badge-muted',
+    blocks:[
+      {time:'오전',text:'러닝 or 휴식'},
+      {time:'오전 중',text:'주간 정리 1시간 📋',highlight:true,sub:'콘텐츠 반응 · 다음 주 계획'},
+      {time:'낮',text:'외식 · 카페 · 바다'},
+      {time:'19:50',text:'인천 출발 🚗'},
+    ], memo:'' },
+];
+
+function renderWeekRoutineCards() {
+  const container = document.getElementById('weekRoutineCards');
+  if (!container) return;
+  container.innerHTML = '';
+  WEEK_ROUTINES.forEach((d, idx) => {
+    const energyDots = [1,2,3].map(i =>
+      `<div style="width:6px;height:6px;border-radius:50%;background:${i<=d.energy?(d.energy===3?'var(--sage)':'var(--gold)'):'var(--border)'};"></div>`
+    ).join('');
+    const card = document.createElement('div');
+    card.style.cssText = 'background:var(--surface);border-radius:16px;overflow:hidden;border:1px solid var(--border);';
+    const isOpen = idx === new Date().getDay() - 1;
+    card.innerHTML = `
+      <div onclick="toggleWeekCard(this)" style="padding:16px;display:flex;align-items:center;gap:12px;cursor:pointer;">
+        <div style="width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:600;flex-shrink:0;background:${d.energy===3?'var(--sage)':d.energy===1?'rgba(196,144,122,0.2)':'var(--surface2)'};color:${d.energy===3?'white':d.energy===1?'var(--rose)':'var(--gold)'};">${d.eng}</div>
+        <div style="flex:1;">
+          <div style="font-family:'Noto Serif KR',serif;font-size:15px;font-weight:600;color:var(--cream);margin-bottom:2px;">${d.day}요일</div>
+          <div style="font-size:11px;color:var(--muted);font-weight:300;">${d.tag}</div>
+        </div>
+        <div style="display:flex;gap:3px;align-items:center;margin-right:8px;">${energyDots}</div>
+        <div class="wcard-chevron" style="color:var(--muted);font-size:14px;transition:transform 0.3s;${isOpen?'transform:rotate(180deg)':''}">▾</div>
+      </div>
+      <div class="wcard-body" style="max-height:${isOpen?'600px':'0'};overflow:hidden;transition:max-height 0.4s ease;">
+        <div style="border-top:1px solid var(--border);margin:0 16px;padding-top:14px;padding-bottom:16px;">
+          ${d.blocks.map(b => `
+            <div style="display:flex;gap:10px;margin-bottom:10px;align-items:flex-start;">
+              <div style="font-size:11px;color:var(--muted);min-width:64px;padding-top:2px;flex-shrink:0;font-family:'Cormorant Garamond',serif;">${b.time}</div>
+              <div style="flex:1;">
+                ${b.highlight
+                  ? `<div style="background:linear-gradient(135deg,var(--surface2),var(--surface3));border-radius:10px;padding:10px 12px;border-left:3px solid var(--gold);">
+                      <div style="font-size:12px;color:var(--cream);font-weight:500;">${b.text}</div>
+                      ${b.sub?`<div style="font-size:11px;color:var(--muted);margin-top:2px;font-weight:300;">${b.sub}</div>`:''}
+                    </div>`
+                  : `<div>
+                      <div style="font-size:13px;color:var(--text);font-weight:300;">${b.text}</div>
+                      ${b.sub?`<div style="font-size:11px;color:var(--muted);margin-top:1px;font-weight:300;">${b.sub}</div>`:''}
+                    </div>`
+                }
+              </div>
+            </div>
+          `).join('')}
+          ${d.memo?`<div style="background:var(--bg);border-radius:8px;padding:10px 12px;font-size:11px;color:var(--muted);font-weight:300;line-height:1.6;margin-top:4px;">💬 ${d.memo}</div>`:''}
+        </div>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function toggleWeekCard(header) {
+  const body = header.nextElementSibling;
+  const chevron = header.querySelector('.wcard-chevron');
+  const isOpen = body.style.maxHeight !== '0px' && body.style.maxHeight !== '';
+  body.style.maxHeight = isOpen ? '0' : '600px';
+  chevron.style.transform = isOpen ? '' : 'rotate(180deg)';
+}
+
+// ── 홈화면 설치 배너 ──
+function showInstallBanner() {
+  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  const isStandalone = window.navigator.standalone;
+  if (isIOS && !isStandalone) {
+    setTimeout(() => {
+      document.getElementById('installBanner').style.display = 'block';
+    }, 2000);
+  }
+}
+
+// INIT
+renderWeek();
+renderSchedule();
+renderTodos();
+renderRoutines();
+renderStudy();
+renderWeekRoutineCards();
+initHealth();
+showInstallBanner();
+</script>
+</body>
+</html>
