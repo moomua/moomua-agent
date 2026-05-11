@@ -262,6 +262,28 @@
     .mov-modal-overlay.hidden { display:none; }
     .mov-modal-box { background:var(--card); border:1px solid var(--border); border-radius:3px; padding:28px 26px; width:100%; max-width:480px; margin:16px; max-height:88vh; overflow-y:auto; }
 
+    /* ── 수업 시퀀스 ── */
+    .dur-pills { display:flex; gap:6px; flex-wrap:wrap; }
+    .dur-pill  { font-size:12px; padding:6px 14px; border:1px solid var(--border); border-radius:2px; background:none; color:var(--muted); cursor:pointer; transition:all .15s; }
+    .dur-pill:hover { border-color:var(--accent); color:var(--accent); }
+    .dur-pill.on { background:var(--accent); border-color:var(--accent); color:#fff; }
+    .arc-group { margin-bottom:24px; }
+    .arc-group-hd { font-size:10px; letter-spacing:.12em; color:var(--light); margin-bottom:10px; padding-bottom:6px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; }
+    .arc-count { font-size:11px; background:var(--bg); border:1px solid var(--border); border-radius:10px; padding:1px 7px; color:var(--muted); }
+    .arc-card { background:var(--card); border:1px solid var(--border); border-radius:3px; margin-bottom:8px; }
+    .arc-head { padding:14px 16px; cursor:pointer; }
+    .arc-type-badge { display:inline-block; font-size:10px; padding:2px 7px; border-radius:2px; margin-right:6px; color:#fff; }
+    .arc-tm { background:var(--c-clinical); } .arc-tg { background:var(--c-strategy); }
+    .arc-ttl { font-size:13px; font-weight:500; color:var(--text); margin:5px 0 7px; }
+    .arc-meta { display:flex; gap:5px; flex-wrap:wrap; align-items:center; }
+    .arc-tag  { font-size:10px; padding:2px 6px; background:var(--bg); border:1px solid var(--border); color:var(--muted); border-radius:2px; }
+    .arc-date { font-size:10px; color:var(--light); margin-left:auto; }
+    .arc-acts { display:flex; gap:6px; margin-top:10px; }
+    .arc-body { max-height:0; overflow:hidden; transition:max-height .4s ease; }
+    .arc-body.open { max-height:1200px; border-top:1px solid var(--border); }
+    .arc-content { padding:14px 16px; font-size:13px; line-height:1.9; color:var(--muted); white-space:pre-wrap; word-break:break-word; }
+    .arc-empty { text-align:center; padding:40px 0; font-size:13px; color:var(--light); line-height:1.8; }
+
     /* ── 콘텐츠 기획판 ── */
     .plan-modal-overlay { position:fixed; inset:0; background:rgba(231,224,216,.88); display:flex; align-items:center; justify-content:center; z-index:150; backdrop-filter:blur(6px); }
     .plan-modal-overlay.hidden { display:none; }
@@ -660,6 +682,60 @@
       </div>
     </div>
 
+    <!-- Sequence Builder -->
+    <div class="ws-panel" id="ws-sequence">
+      <div class="mov-tabs">
+        <button class="mov-tab active" data-tab="smember" onclick="switchSeqTab('smember')">👤 회원 맞춤</button>
+        <button class="mov-tab" data-tab="sgoal"   onclick="switchSeqTab('sgoal')">🎯 목표별</button>
+        <button class="mov-tab" data-tab="sarchive" onclick="switchSeqTab('sarchive')">📂 보관함</button>
+      </div>
+
+      <!-- 1. 회원 맞춤 시퀀스 -->
+      <div class="mov-sub active" id="msub-smember">
+        <label class="mov-label">회원 이름</label>
+        <input class="mov-input" id="sm-name" placeholder="예: 김○○ 회원">
+        <label class="mov-label">회원 특성 (복수 선택)</label>
+        <div class="char-pills" id="sm-chars"></div>
+        <label class="mov-label">기구</label>
+        <div class="char-pills" id="sm-equip"></div>
+        <label class="mov-label">수업 시간</label>
+        <div class="dur-pills" id="sm-dur"></div>
+        <button class="btn-run" style="margin-top:16px" id="sm-btn" onclick="runMemberSeq()">시퀀스 생성</button>
+        <div class="err-box" id="sm-err"></div>
+        <div id="sm-result" style="display:none">
+          <div class="mov-result" id="sm-body"></div>
+          <div class="mov-act-row">
+            <button class="btn-copy-res" id="sm-copy" onclick="copySeqResult('sm-copy','sm')">복사</button>
+            <button class="btn-save-result" id="sm-save" onclick="saveSeqResult('sm')">결과 저장하기</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. 목표별 시퀀스 -->
+      <div class="mov-sub" id="msub-sgoal">
+        <label class="mov-label">수업 목표</label>
+        <textarea class="fld" id="sg-goal" placeholder="예: 산후 코어 회복, 거북목 개선, 골반저근 이완, 체형 교정..." style="min-height:70px"></textarea>
+        <label class="mov-label">기구</label>
+        <div class="char-pills" id="sg-equip"></div>
+        <label class="mov-label">수업 시간</label>
+        <div class="dur-pills" id="sg-dur"></div>
+        <button class="btn-run" style="margin-top:16px" id="sg-btn" onclick="runGoalSeq()">시퀀스 생성</button>
+        <div class="err-box" id="sg-err"></div>
+        <div id="sg-result" style="display:none">
+          <div class="mov-result" id="sg-body"></div>
+          <div class="mov-act-row">
+            <button class="btn-copy-res" id="sg-copy" onclick="copySeqResult('sg-copy','sg')">복사</button>
+            <button class="btn-save-result" id="sg-save" onclick="saveSeqResult('sg')">결과 저장하기</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. 보관함 -->
+      <div class="mov-sub" id="msub-sarchive">
+        <div id="seq-archive-content"></div>
+      </div>
+    </div>
+
     <!-- Movement Analysis -->
     <div class="ws-panel" id="ws-movement">
       <div class="mov-tabs">
@@ -981,6 +1057,7 @@ function selectPage(pageId) {
   document.getElementById(`nav-${pageId}`)?.classList.add('active');
   if (pageId==='results') { renderResultsPanel(); showPanel('ws-results'); }
   else if (pageId==='plan')     { renderPlanBoard(); showPanel('ws-plan'); }
+  else if (pageId==='sequence') { showPanel('ws-sequence'); }
   else if (pageId==='movement') { showPanel('ws-movement'); }
   else { showPanel(`ws-${pageId}`); }
 }
@@ -1066,6 +1143,7 @@ function buildSidebar() {
     <button class="page-btn" id="nav-clinical-db" onclick="selectPage('clinical-db')">🗄 임상 지식 DB</button>
     <button class="page-btn" id="nav-results" onclick="selectPage('results')">⭐️ 결과 모아보기 <span class="res-badge" id="res-count-badge"></span></button>
     <button class="page-btn" id="nav-plan"     onclick="selectPage('plan')">📌 콘텐츠 기획판</button>
+    <button class="page-btn" id="nav-sequence" onclick="selectPage('sequence')">🎬 수업 시퀀스</button>
     <button class="page-btn" id="nav-movement" onclick="selectPage('movement')">🤸 동작 분석</button>
     <button class="sb-key" onclick="showKeySettings()">API 키 변경</button>
   `;
@@ -1374,10 +1452,205 @@ document.getElementById('mov-modal').addEventListener('click', e => {
   if (e.target===document.getElementById('mov-modal')) closeMovModal();
 });
 
+// ── 수업 시퀀스 ──────────────────────────────────────────────
+const SEQ_CHARS   = ['복직근이개','거북목','골반저근과긴장','하지정맥류','플랫백','후방경사','산후','고관절제한','흉추후만','눈염증/안압주의','임신준비'];
+const SEQ_EQUIPS  = ['리포머','매트','체어','배럴','전체'];
+const SEQ_DURS    = ['50분','60분','90분'];
+const SK          = 'moomua_sequences';
+
+const smChars = new Set(), sgChars = new Set();
+const smEquip = new Set(), sgEquip = new Set();
+let smDur = '60분', sgDur = '60분';
+const seqResults = {};
+
+function getSeqs() { try { return JSON.parse(localStorage.getItem(SK)||'[]'); } catch { return []; } }
+function setSeqs(a) { localStorage.setItem(SK, JSON.stringify(a)); }
+
+function initSeqPills() {
+  const build = (cid, items, set, fn) => {
+    document.getElementById(cid).innerHTML = items.map(v =>
+      `<button class="char-pill${set.has(v)?' on':''}" onclick="${fn}('${v}',this)">${v}</button>`).join('');
+  };
+  const buildDur = (cid, cur, setter) => {
+    document.getElementById(cid).innerHTML = SEQ_DURS.map(d =>
+      `<button class="dur-pill${d===cur?' on':''}" onclick="${setter}('${d}',this)">${d}</button>`).join('');
+  };
+  const buildEquip = (cid, set, fn) => {
+    document.getElementById(cid).innerHTML = SEQ_EQUIPS.map(v =>
+      `<button class="char-pill${set.has(v)?' on':''}" onclick="${fn}('${v}',this)">${v}</button>`).join('');
+  };
+  build('sm-chars', SEQ_CHARS, smChars, 'tgSmChar');
+  build('sg-chars', SEQ_CHARS, sgChars, 'tgSgChar');
+  buildEquip('sm-equip', smEquip, 'tgSmEquip');
+  buildEquip('sg-equip', sgEquip, 'tgSgEquip');
+  buildDur('sm-dur', smDur, 'setSmDur');
+  buildDur('sg-dur', sgDur, 'setSgDur');
+}
+
+function tgSmChar(v,el)  { smChars.has(v)?smChars.delete(v):smChars.add(v); el.classList.toggle('on'); }
+function tgSgChar(v,el)  { sgChars.has(v)?sgChars.delete(v):sgChars.add(v); el.classList.toggle('on'); }
+function tgSmEquip(v,el) { smEquip.has(v)?smEquip.delete(v):smEquip.add(v); el.classList.toggle('on'); }
+function tgSgEquip(v,el) { sgEquip.has(v)?sgEquip.delete(v):sgEquip.add(v); el.classList.toggle('on'); }
+function setSmDur(v,el)  { smDur=v; document.querySelectorAll('#sm-dur .dur-pill').forEach(b=>b.classList.remove('on')); el.classList.add('on'); }
+function setSgDur(v,el)  { sgDur=v; document.querySelectorAll('#sg-dur .dur-pill').forEach(b=>b.classList.remove('on')); el.classList.add('on'); }
+
+function switchSeqTab(id) {
+  document.querySelectorAll('#ws-sequence .mov-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('#ws-sequence .mov-sub').forEach(s=>s.classList.remove('active'));
+  document.querySelector(`#ws-sequence .mov-tab[data-tab="${id}"]`).classList.add('active');
+  document.getElementById(`msub-${id}`).classList.add('active');
+  if (id==='sarchive') renderSeqArchive();
+}
+
+const SEQ_SYS = `당신은 MOOMUA 임상 필라테스 수업 설계 전문가입니다.
+MOOMUA는 인천 1:1 프라이빗 필라테스 스튜디오로, 운동자 듀듀가 재활 임상 관점으로 수업합니다.
+
+시퀀스 설계 원칙:
+- 안전 최우선, 통증 없는 범위에서만 진행
+- 회원 특성 반드시 반영 (금지 동작 명확히)
+- 각 동작마다 스프링 세팅, 큐잉, 수정법 구체적으로
+
+출력 형식 (반드시 다음 구조로):
+
+## 수업 개요
+목표 / 대상 특성 요약 / 기구 / 시간 배분
+
+## 시퀀스
+각 동작: 번호. 동작명 | 스프링 세팅 | 핵심 큐잉 | 이 회원 맞춤 수정 | 주의사항
+
+## 절대 금지 동작
+(이 특성에서 피해야 할 것과 이유)
+
+## 진행 기준
+(몇 세션 후 어떻게 업그레이드할지)`;
+
+async function _runSeq(prefix, userMsg, label, memberName) {
+  const btn = document.getElementById(`${prefix}-btn`);
+  const err = document.getElementById(`${prefix}-err`);
+  const res = document.getElementById(`${prefix}-result`);
+  err.classList.remove('visible'); btn.disabled=true;
+  res.style.display='block';
+  document.getElementById(`${prefix}-body`).innerHTML='<span class="loading-anim">시퀀스 설계 중</span>';
+  resetMovSaveBtn(`${prefix}-save`);
+  try {
+    const raw = await callClaude(SEQ_SYS, userMsg, 2400);
+    seqResults[prefix] = { text:raw, label, member: memberName||'목표별', chars:[...smChars], equip:[...smEquip] };
+    document.getElementById(`${prefix}-body`).innerHTML = renderMD(raw);
+  } catch(e) {
+    res.style.display='none'; err.textContent=e.message; err.classList.add('visible');
+  } finally { btn.disabled=false; }
+}
+
+async function runMemberSeq() {
+  if (!getKey()) { showKeySettings(); return; }
+  const name = document.getElementById('sm-name').value.trim() || '회원';
+  const chars = [...smChars].join(', ') || '특성 없음';
+  const equip = [...smEquip].join(', ') || '미선택';
+  if (equip==='미선택') { document.getElementById('sm-err').textContent='기구를 선택해주세요.'; document.getElementById('sm-err').classList.add('visible'); return; }
+  await _runSeq('sm', `회원: ${name}\n특성: ${chars}\n기구: ${equip}\n수업 시간: ${smDur}`, `${name} — ${chars.slice(0,20)}`, name);
+}
+
+async function runGoalSeq() {
+  if (!getKey()) { showKeySettings(); return; }
+  const goal = document.getElementById('sg-goal').value.trim();
+  if (!goal) { document.getElementById('sg-goal').focus(); return; }
+  const equip = [...sgEquip].join(', ') || '미선택';
+  if (equip==='미선택') { document.getElementById('sg-err').textContent='기구를 선택해주세요.'; document.getElementById('sg-err').classList.add('visible'); return; }
+  await _runSeq('sg', `목표: ${goal}\n기구: ${equip}\n수업 시간: ${sgDur}`, goal.slice(0,30), null);
+}
+
+function copySeqResult(btnId, p) {
+  const r = seqResults[p]; if (!r) return;
+  navigator.clipboard.writeText(r.text).then(() => {
+    const btn = document.getElementById(btnId);
+    if (btn) { btn.textContent='복사됨'; setTimeout(()=>{ btn.textContent='복사'; },2000); }
+  });
+}
+
+function saveSeqResult(p) {
+  const r = seqResults[p]; if (!r) return;
+  const seqs = getSeqs();
+  const prefix = p==='sm' ? 'sm' : 'sg';
+  seqs.unshift({
+    id: Date.now().toString(),
+    type: p==='sm'?'member':'goal',
+    member: r.member,
+    label: r.label,
+    chars: p==='sm' ? [...smChars] : [...sgChars],
+    equip: p==='sm' ? [...smEquip] : [...sgEquip],
+    dur:   p==='sm' ? smDur : sgDur,
+    content: r.text,
+    date: nowDate(), time: nowTime()
+  });
+  setSeqs(seqs);
+  resetMovSaveBtn(`${p}-save`, true);
+}
+
+function renderSeqArchive() {
+  const seqs = getSeqs();
+  const el = document.getElementById('seq-archive-content');
+  if (!seqs.length) {
+    el.innerHTML='<div class="arc-empty">저장된 시퀀스가 없습니다.<br>회원 맞춤 또는 목표별 탭에서 생성 후 저장하세요.</div>';
+    return;
+  }
+  // 회원별 그룹핑
+  const groups = {};
+  seqs.forEach(s => {
+    const key = s.member || '목표별';
+    if (!groups[key]) groups[key] = [];
+    groups[key].push(s);
+  });
+  el.innerHTML = Object.entries(groups).map(([gname, items]) => `
+    <div class="arc-group">
+      <div class="arc-group-hd">
+        <span>${gname}</span>
+        <span class="arc-count">${items.length}개</span>
+      </div>
+      ${items.map(s => `
+        <div class="arc-card">
+          <div class="arc-head" onclick="toggleArcCard(this)">
+            <span class="arc-type-badge ${s.type==='member'?'arc-tm':'arc-tg'}">${s.type==='member'?'회원 맞춤':'목표별'}</span>
+            <div class="arc-ttl">${esc(s.label)}</div>
+            <div class="arc-meta">
+              ${s.chars.slice(0,4).map(c=>`<span class="arc-tag">${esc(c)}</span>`).join('')}
+              ${s.chars.length>4?`<span class="arc-tag">+${s.chars.length-4}</span>`:''}
+              <span class="arc-tag">${esc(s.equip.join('·'))}</span>
+              <span class="arc-tag">${esc(s.dur)}</span>
+              <span class="arc-date">${esc(s.date)} ${esc(s.time)}</span>
+            </div>
+            <div class="arc-acts">
+              <button class="btn-copy-res" onclick="event.stopPropagation();copyArcSeq('${s.id}')">복사</button>
+              <button class="btn-del" onclick="event.stopPropagation();deleteSeq('${s.id}')">삭제</button>
+            </div>
+          </div>
+          <div class="arc-body" id="arc-${s.id}">
+            <div class="arc-content">${esc(s.content)}</div>
+          </div>
+        </div>`).join('')}
+    </div>`).join('');
+}
+
+function toggleArcCard(head) {
+  const body = head.nextElementSibling;
+  body.classList.toggle('open');
+}
+
+function copyArcSeq(id) {
+  const s = getSeqs().find(x=>x.id===id); if (!s) return;
+  navigator.clipboard.writeText(s.content);
+}
+
+function deleteSeq(id) {
+  if (!confirm('이 시퀀스를 삭제하시겠어요?')) return;
+  setSeqs(getSeqs().filter(x=>x.id!==id));
+  renderSeqArchive();
+}
+
 buildSidebar();
 buildWelcome();
 updateResultsBadge();
 initMovPills();
+initSeqPills();
 </script>
 </body>
 </html>
